@@ -1,10 +1,12 @@
 import { defineConfig } from 'astro/config';
 
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 
-// https://astro.build/config
 export default defineConfig({
-    integrations    : [tailwind()],
-    site            : "https://niba291.github.io",
-    base            : "/",
+  site: "https://niba291.github.io",
+  base: "/",
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
