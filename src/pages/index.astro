@@ -6,24 +6,24 @@ import Title                                            from "../components/Titl
 import ExperienceItem                                   from "../components/ExperienceItem.astro";
 import ProyectItem                                      from "../components/ProyectItem.astro";
 import CertificateItem                                  from "../components/CertificateItem.astro";
-import {experience, proyect, certificate}               from "../config/env";
+import { site, experience, projects, certificates }     from "../data";
 
 ---
 
 <Layout>
     <Section>
         <img
-            src="https://avatars.githubusercontent.com/u/63934510?v=4"
+            src={site.profileImage}
             alt="img profile"
             class="rounded-full w-[150px] h-[150px] border-4 md:mr-10 mb-10 md:mb-0"
         />
         <div class="flex flex-col justify-center">
-            <h1 class="text-4xl font-bold text-center md:text-start">Nibaldo Chavez</h1>
+            <h1 class="text-4xl font-bold text-center md:text-start">{site.name}</h1>
             <h5 class="text-2xl py-5 md:py-0 md:pt-2 text-center md:text-left">
-                Desarrollador full stack
+                {site.role}
             </h5>
             <div class="pt-5 flex flex-wrap md:justify-start">
-                <Button href="https://github.com/niba291">
+                <Button href={site.social.github}>
                     <svg
                         class="mr-1"
                         xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@ import {experience, proyect, certificate}               from "../config/env";
                     >
                     <span class="hidden md:block">Github</span>
                 </Button>
-                <Button href="https://www.linkedin.com/in/nibaldochzvez/">
+                <Button href={site.social.linkedin}>
                     <svg
                         class="mr-1"
                         xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +51,7 @@ import {experience, proyect, certificate}               from "../config/env";
                     >
                     <span class="hidden md:block">Linkedin</span>                        
                 </Button>
-                <Button href="mailto:nibaldochavezp@gmail.com">
+                <Button href={site.social.email}>
                     <svg
                         class="mr-1"
                         xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@ import {experience, proyect, certificate}               from "../config/env";
                     >
                     <span class="hidden md:block">Correo</span>
                 </Button>
-                <Button href="https://drive.usercontent.google.com/download?id=1lOFNnBKkJb5xx6aNCAtzuQXdTZrmEXMW&export=download&authuser=2&confirm=t&uuid=7ab48a27-65bb-4ee4-8ff3-a0e624a7dd5e&at=APZUnTVjhrUMz75oolkr8FeFlLev:1705411041880" download={""}>
+                <Button href={site.social.resume} download={""}>
                     <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <g fill="none" fill-rule="evenodd">
                             <path d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
@@ -94,7 +94,7 @@ import {experience, proyect, certificate}               from "../config/env";
             Certificaciones
         </Title>
         <section class="w-full pt-10">
-            {certificate.map(({title, description, url, img, tags}, key) => {
+            {certificates.map(({title, description, url, img, tags}, key) => {
                 return (<CertificateItem title={title} description={description} url={url} img={img} tags={tags}></CertificateItem>);
             })}
         </section>
@@ -105,7 +105,7 @@ import {experience, proyect, certificate}               from "../config/env";
             Proyectos
         </Title>
         <section class="w-full py-10">
-            {proyect.map(({title, description, github, live, img, tags}, key) => {
+            {projects.map(({title, description, github, live, img, tags}, key) => {
                 return(
                     <ProyectItem title={title} description={description} github={github} live={live} img={img} tags={tags}></ProyectItem>
                 );
