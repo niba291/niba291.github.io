@@ -1,4 +1,6 @@
-export const certificates = [
+import type { Certificate } from "@/types";
+
+export const certificates: Certificate[] = [
     {
         title           : "React Native CLI: Aplicaciones nativas para IOS y Android",
         description     : "Curso de react native donde se aprende la base para desarrollo moviles.",

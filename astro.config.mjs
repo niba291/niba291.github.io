@@ -1,12 +1,12 @@
-import { defineConfig } from 'astro/config';
-
+import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
+import icon from "astro-icon";
 
 export default defineConfig({
-  site: "https://niba291.github.io",
-  base: "/",
-
-  vite: {
-    plugins: [tailwindcss()],
-  },
+    site: "https://niba291.github.io",
+    base: "/",
+    vite: {
+        plugins: [tailwindcss()],
+    },
+    integrations: [icon()],
 });

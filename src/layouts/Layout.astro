@@ -1,6 +1,10 @@
 ---
-import "../styles/global.css";
-import { site } from "../data";
+import { site } from "@/data";
+
+import Navbar from "@/components/ui/Navbar.astro";
+import Footer from "@/components/ui/Footer.astro";
+
+import "@/styles/global.css";
 ---
 
 <!DOCTYPE html>
@@ -8,17 +12,16 @@ import { site } from "../data";
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<meta name="generator" content={Astro.generator} />
 	<meta name="description" content={site.description} />
 	<title>{site.title}</title>
 </head>
-<body>
-	<!-- <slot /> -->
-	<header></header>
-	<main class="container m-auto text-black-base md:px-64 px-10">
+<body class="bg-background">
+	<main class="bg-foreground mx-3 min-h-[calc(100vh-12px)]">
+		<Navbar/>
 		<slot/>
 	</main>
-	<footer></footer>
+	<Footer/>
 </body>
 </html>

@@ -1,12 +1,12 @@
-import imageLandingPage from "../images/landingPage.webp";
+import type { Project } from "@/types";
 
-export const projects = [
+export const projects: Project[] = [
     {
         title           : "DIGITALDEVSOLUTIONS",
         description     : "Landing page creada con Astro y Tailwind CSS, enfocada en promover servicios de programación web. Diseño rápido y responsivo. Optimizada para una experiencia fluida y conversión de clientes.",
         github          : "https://github.com/DigitalDevSolutions/LAN-WEB",
         live            : "https://digitaldevsolutions.cl/",
-        img             : imageLandingPage,
+        img             : "/projects/landingPage.webp",
         tags            : ["ASTRO", "TAILWINDSCSS"]
     },
     {

@@ -1,0 +1,79 @@
+---
+
+import { Icon } from "astro-icon/components";
+
+const navLinks = [
+    { label: "Inicio", href: "#inicio" },
+    { label: "Proyectos", href: "#proyectos" },
+    { label: "Experiencia", href: "#experiencia" },
+    { label: "Certificados", href: "#certificados" },
+];
+---
+
+<header class="sticky top-0 z-50 text-foreground m-auto">
+    <svg id="tab-svg" width="100%" height="140" viewBox="0 0 600 140">
+        <path
+            fill="#0070f3" 
+            d="
+                M 0 0 
+                L 0 0 
+                L 600 0 
+                L 600 0 
+                L 600 14 
+                A 10 10 0 0 1 590 24 
+                L 520 24 
+                A 10 10 0 0 0 510 34 
+                L 510 80 
+                A 10 10 0 0 1 500 90 
+                L 100 90 
+                A 10 10 0 0 1 90 80 
+                L 90 34 
+                A 10 10 0 0 0 80 24 
+                L 10 24 
+                A 10 10 0 0 1 0 14 
+                Z"
+        />
+    </svg>
+    <nav class="mx-auto px-4 py-3 flex items-center justify-center">
+        <ul class="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+                <li>
+                    <a href={link.href} class="transition-colors duration-300 font-body text-sm tracking-wide">
+                        {link.label}
+                    </a>
+                </li>
+            ))}
+        </ul>
+
+        <button id="menu-toggle" class="md:hidden cursor-pointer">
+            <Icon name="line-md:menu" width="26" height="26"/>
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="md:hidden hidden bg-foreground border-t border-border/10 px-4 py-4">
+        <ul class="flex flex-col gap-4 items-center">
+            {navLinks.map((link) => (
+                <li>
+                    <a href={link.href} class="transition-colors duration-300 font-body text-lg">
+                        {link.label}
+                    </a>
+                </li>
+            ))}
+        </ul>
+    </div>
+</header>
+
+<script>
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+
+    toggle?.addEventListener("click", () => {
+        menu?.classList.toggle("hidden");
+    });
+
+    menu?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            menu.classList.add("hidden");
+        });
+    });
+</script>

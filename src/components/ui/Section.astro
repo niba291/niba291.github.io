@@ -1,5 +1,9 @@
 ---
-const { class: className } = Astro.props
+interface Props {
+    class?: string;
+}
+
+const { class: className = "" } = Astro.props;
 ---
 
 <section class={`p-2 flex flex-wrap justify-center py-16 border-b-2 ${className}`}>
