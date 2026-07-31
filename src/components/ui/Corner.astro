@@ -1,0 +1,24 @@
+---
+// Uso: <Corner corners="lt rt" />
+//   lt = esquina superior izquierda (top-left)
+//   rt = esquina superior derecha (top-right)
+//   lb = esquina inferior izquierda (bottom-left)
+//   rb = esquina inferior derecha (bottom-right)
+// Se pueden combinar: corners="lt rt"  o  corners="lt rt lb rb"
+interface Props {
+    corners?: string;
+}
+
+const { corners = "" } = Astro.props;
+
+const cornerClasses: Record<string, string> = {
+    lt: "rotate-180 me-auto",
+    rt: "rotate-180 -scale-x-100 ms-auto",
+    lb: "rotate-180 me-auto",
+    rb: "rotate-180 -scale-x-100 ms-auto",
+};
+
+const list = corners.split(/\s+/).filter(Boolean);
+---
+
+{list.map((corner) => <div class={`corner-2xl ${cornerClasses[corner] ?? ""}`}></div>)}

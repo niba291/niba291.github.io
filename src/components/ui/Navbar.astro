@@ -1,6 +1,7 @@
 ---
 
 import { Icon } from "astro-icon/components";
+import Corner from "./Corner.astro";
 
 const navLinks = [
     { label: "Inicio", href: "#inicio" },
@@ -10,9 +11,10 @@ const navLinks = [
 ];
 ---
 
-<header class="sticky top-0 z-50 text-foreground m-auto">
-    <!-- https://www.google.com/search?q=clip+css+generator&oq=clip+css+generator&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOdIBCDM3ODFqMGo3qAIAsAIA&sourceid=chrome&source=chrome.ob&ie=UTF-8#fpstate=ive&vld=cid:ac3dcd85,vid:yXN6MT4ERbE,st:0 -->
-    <nav class="mx-auto px-4 py-3 flex items-center justify-center">
+<header class="sticky top-0 z-50 text-foreground flex flex-wrap justify-center">
+    <div class="w-full py-1.5 bg-background"/>
+    <Corner corners="lt rt"/>
+    <nav class="px-4 py-4 flex items-center justify-center bg-background rounded-b-2xl">
         <ul class="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
                 <li>
@@ -26,7 +28,9 @@ const navLinks = [
         <button id="menu-toggle" class="md:hidden cursor-pointer">
             <Icon name="line-md:menu" width="26" height="26"/>
         </button>
-    </nav>
+    </nav>    
+    <Corner corners="lb rb"/>
+
 
     <div id="mobile-menu" class="md:hidden hidden bg-foreground border-t border-border/10 px-4 py-4">
         <ul class="flex flex-col gap-4 items-center">

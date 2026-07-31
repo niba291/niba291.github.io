@@ -6,3 +6,13 @@
     --color-foreground: #34150F;
     --color-background: #EACEAA;
 }
+
+.corner-2xl {
+    width: calc(var(--spacing) * 4);
+    height: calc(var(--spacing) * 4);
+    background: radial-gradient(
+        circle at top left,
+        transparent var(--radius-2xl),
+        var(--color-background) calc(var(--radius-2xl))
+    );
+}
