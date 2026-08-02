@@ -1,0 +1,16 @@
+---
+interface Props {
+    href: string;
+    target?: "_self" | "_blank" | "_parent" | "_top";
+    rel?: string;
+    class?: string;
+}
+
+const { href, target = "_self", rel = "", class: className = "" } = Astro.props as Props;
+
+const relAttrs = target === "_blank" ? `noopener noreferrer${rel ? ` ${rel}` : ""}` : rel;
+---
+
+<a href={href} target={target} rel={relAttrs} class={`relative inline-flex items-center gap-1.5 text-foreground underline underline-offset-4 transition-colors hover:text-primary ${className}`.trim()}>
+    <slot/>
+</a>

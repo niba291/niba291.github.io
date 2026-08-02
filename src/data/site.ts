@@ -18,3 +18,30 @@ export const navLinks = [
     { label: "Certificados", href: "#certifications", icon: "line-md:document-list" },
     { label: "Proyectos", href: "#projects", icon: "line-md:folder" },
 ];
+
+export const footer = {
+    craftedBy: {
+        name: "@niba291",
+        href: "https://github.com/niba291",
+        icon: "mdi:crown",
+    },
+    inspiredBy: [
+        { name: "Tailwind CSS", href: "https://tailwindcss.com" },
+        { name: "Astro", href: "https://astro.build" },
+        { name: "Iconify", href: "https://iconify.design" },
+    ],
+    deployedOn: [
+        { name: "GitHub Pages", href: "https://pages.github.com" },
+    ],
+    analytics: [
+        { name: "Google Analytics", href: "https://analytics.google.com" },
+    ],
+    sourceCode: [
+        { name: "GitHub", href: "https://github.com/niba291/niba291.github.io" },
+    ],
+    license: {
+        name: "MIT License",
+        href: "https://opensource.org/licenses/MIT",
+        icon: "mdi:scale-balance",
+    },
+};
