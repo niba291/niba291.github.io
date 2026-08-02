@@ -1,0 +1,19 @@
+---
+export interface Props {
+    class?: string;
+    size?: "xs" | "sm";
+    as?: "label" | "span";
+    for?: string;
+};
+
+const { class: className = "", size = "xs", as: Tag = "label", for: htmlFor } = Astro.props as Props;
+
+const sizes = {
+    xs: "text-[10px] sm:text-xs",
+    sm: "text-xs sm:text-sm",
+};
+---
+
+<Tag for={htmlFor} class={`${sizes[size]} font-semibold uppercase tracking-wider text-foreground/70 ${className}`.trim()}>
+    <slot />
+</Tag>

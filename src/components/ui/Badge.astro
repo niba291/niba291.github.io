@@ -1,3 +1,17 @@
-<span class="border border-black-base mr-1 rounded-full px-3 mb-2 uppercase block text-nowrap">
+---
+import { Icon } from "astro-icon/components";
+
+export interface Props {
+    icon?: string;
+    class?: string;
+};
+
+const { icon = "", class: className = "" } = Astro.props as Props;
+---
+
+<span class={`border bg-foreground text-background mr-1 rounded-full px-3 py-1 mb-2 uppercase text-nowrap inline-flex items-center gap-1.5 ${className}`.trim()}>
+    {icon !== "" && (
+        <Icon name={icon} class="shrink-0 text-base leading-none"/>
+    )}
     <slot/>
 </span>

@@ -1,0 +1,32 @@
+---
+export interface Props {
+    class?: string;
+    size?: "sm" | "base" | "lg";
+    color?: "default" | "muted" | "accent";
+    as?: "p" | "span";
+    itemprop?: string;
+};
+
+const { 
+    class: className = "", 
+    size = "base", 
+    color = "muted", 
+    as: Tag = "p",
+    itemprop = ""
+} = Astro.props as Props;
+
+const sizes = {
+    sm: "text-sm",
+    base: "text-base",
+    lg: "text-base sm:text-lg",
+};
+const colors = {
+    default: "text-foreground",
+    muted: "text-foreground/60",
+    accent: "text-primary",
+};
+---
+
+<Tag class={`${sizes[size]} ${colors[color]} leading-relaxed ${className}`.trim()} itemprop={itemprop}>
+    <slot />
+</Tag>

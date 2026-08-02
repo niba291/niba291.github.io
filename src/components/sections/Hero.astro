@@ -1,0 +1,20 @@
+---
+import Section from "@/components/ui/Section.astro";
+import Title from "@/components/ui/Title.astro";
+
+import { site } from "@/data/site";
+
+const sectionId = "home";
+
+---
+
+<Section id={sectionId}>
+    <div class="flex flex-col space-y-8 m-auto">
+        <Title as="h1" size="xl">
+            {site.name}
+        </Title>
+        <Title size="lg">
+            {site.role}
+        </Title>
+    </div>
+</Section>

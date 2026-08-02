@@ -5,6 +5,33 @@
     --color-secondary: #85431E;
     --color-foreground: #34150F;
     --color-background: #EACEAA;
+    --color-black-base: #0B0B0B;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-background) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(20, 184, 166, 0.3);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(20, 184, 166, 0.5);
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 .corner-2xl {
@@ -13,6 +40,7 @@
     background: radial-gradient(
         circle at top left,
         transparent var(--radius-2xl),
-        var(--color-background) calc(var(--radius-2xl))
+        var(--color-foreground) calc(var(--radius-2xl))
     );
 }
+

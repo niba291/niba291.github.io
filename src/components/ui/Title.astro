@@ -1,3 +1,27 @@
-<h2 class="text-3xl font-bold w-full flex flex-wrap justify-center md:justify-start">
-    <slot/>
-</h2>
+---
+export interface Props {
+    class?: string;
+    as?: "h1" | "h2" | "h3" | "h4";
+    size?: "xs" | "sm" | "md" | "lg" | "xl";
+    itemprop?: string;
+};
+
+const { 
+    class: className = "", 
+    as: Tag = "h2", 
+    size = "lg", 
+    itemprop,
+} = Astro.props as Props;
+
+const sizes = {
+    xs: "text-lg sm:text-xl",
+    sm: "text-xl sm:text-2xl",
+    md: "text-2xl sm:text-3xl",
+    lg: "text-3xl sm:text-4xl lg:text-5xl",
+    xl: "text-4xl sm:text-5xl lg:text-6xl xl:text-7xl",
+}
+---
+
+<Tag class={`font-medium tracking-tighter leading-[1.1] text-foreground ${sizes[size]} ${className}`.trim()} itemprop={itemprop}>
+    <slot />
+</Tag>

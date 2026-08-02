@@ -1,11 +1,43 @@
 ---
-interface Props {
-    class?: string;
-}
+import Reveal from "astro-reveal/Reveal.astro";
 
-const { class: className = "" } = Astro.props;
+import Title from "@/components/ui/Title.astro";
+import Text from "@/components/ui/Text.astro";
+import Badge from "@/components/ui/Badge.astro";
+
+export interface Props {
+    class?: string;
+    id?: string;
+    title?: string;
+    badge?: string;
+    badgeIcon?: string;
+    description?: string;
+};
+
+const { 
+    class: className = "", 
+    id = "",
+    title = "",
+    badge = "",
+    badgeIcon = "mdi:hexagon-multiple",
+    description = ""
+} = Astro.props as Props;
 ---
 
-<section class={`p-2 flex flex-wrap justify-center py-16 border-b-2 ${className}`}>
-    <slot/>
-</section>
+<Reveal as="section" id={id} animation="scale" distance="3rem" class={`relative min-h-screen overflow-hidden z-10 mx-auto max-w-7xl px-4 pt-28 pb-12 sm:px-6 md:pt-36 md:pb-20 lg:px-8 ${className}`.trim()}>
+    {(title !== "") && (
+        <div class="flex flex-col gap-4 mb-16 items-center text-center">
+            <Badge icon={badgeIcon}>
+                {badge}
+            </Badge>
+            <Title as="h2">
+                {title}
+            </Title>
+            <Text size="lg" class="max-w-xl">
+                {description}
+            </Text>
+        </div>
+    )}
+    <slot />
+</Reveal>
+

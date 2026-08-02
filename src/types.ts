@@ -18,7 +18,7 @@ export interface SocialLinks {
 
 export interface Experience {
     title: string;
-    description: string | string[];
+    description: string[];
     company: string;
     tags: string[];
 }
