@@ -2,6 +2,8 @@
 import { Icon } from "astro-icon/components";
 
 import Section from "@/components/ui/Section.astro";
+import Carrousel from "@/components/ui/Carrousel.astro";
+import Corner from "@/components/ui/Corner.astro";
 import Title from "@/components/ui/Title.astro";
 import Text from "@/components/ui/Text.astro";
 import Badge from "@/components/ui/Badge.astro";
@@ -10,11 +12,6 @@ import Label from "@/components/ui/Label.astro";
 import { experience } from "@/data";
 
 const sectionId = "experiences";
-
-const jobs = experience.map((job) => {
-    const [role = job.title, period = ""] = job.title.split("|").map((part) => part.trim());
-    return { ...job, role, period };
-});
 ---
 
 <Section
@@ -24,54 +21,29 @@ const jobs = experience.map((job) => {
     title="Trayectoria profesional"
     description="Años de experiencia construyendo soluciones full stack para distintas empresas."
 >
-    <ol class="relative ms-4 sm:ms-8 space-y-10 border-s-2 border-foreground/15 ps-8 sm:ps-12">
-        {jobs.map((job) => (
-            <li class="relative">
-                <span class="absolute -inset-s-11 sm:-inset-s-15 top-1.5 flex size-7 items-center justify-center rounded-full bg-foreground text-background">
-                    <Icon name="line-md:briefcase-filled" class="size-4"/>
-                </span>
-
-                <article class="rounded-2xl border border-foreground/15 bg-white/40 p-5 sm:p-6 shadow-sm">
-                    <div class="flex flex-wrap items-center gap-2">
-                        <Icon name="line-md:account" class="size-5 text-primary"/>
-                        <Label size="sm" as="span" class="text-primary">
-                            {job.company}
+    <Carrousel>
+        {experience.map((item, i) => (
+            <article class="embla__slide flex" itemscope itemtype="https://schema.org/CreativeWork">
+                <div class="relative flex flex-col w-full">
+                    <div class="flex items-end">
+                        <div class="relative px-2 py-2 bg-primary border-2 border-b-0 border-foreground shrink-0 z-4 rounded-t-2xl">
+                            <Title size="xs">{item.company}</Title>
+                        </div>
+                        <Corner corners="rb" line="var(--color-foreground)" color="var(--color-primary)" class="mx-0! -ml-0.5! relative z-6"/>
+                        <Label size="xs" class="rounded-t-2xl rounded-br-none text-background! px-3 text-center bg-foreground ml-auto mr-3">
+                            {item.title.split("|")[0]}<br>
+                            {item.title.split("|")[1]}
                         </Label>
                     </div>
-
-                    <Title as="h3" size="md" class="mt-2">
-                        {job.role}
-                    </Title>
-
-                    {job.period !== "" && (
-                        <div class="mt-1 flex items-center gap-1.5">
-                            <Icon name="line-md:calendar" class="size-4 text-foreground/50"/>
-                            <Text size="sm" as="span">
-                                {job.period}
+                    <div class="flex-1 bg-primary border-2 border-foreground p-6 pt-1 rounded-2xl rounded-tl-none -mt-0.5 w-full">
+                        {item.description.map((line) => (
+                            <Text>
+                                {line}
                             </Text>
-                        </div>
-                    )}
-
-                    <ul class="mt-4 space-y-2">
-                        {job.description.map((point : string) => (
-                            <li class="flex items-start gap-2">
-                                <Icon name="line-md:confirm-circle" class="mt-1 size-4 shrink-0 text-secondary"/>
-                                <Text class="flex-1">
-                                    {point.replace(/^•\s*/, "")}
-                                </Text>
-                            </li>
-                        ))}
-                    </ul>
-
-                    <div class="mt-5 flex flex-wrap gap-2">
-                        {job.tags.map((tag) => (
-                            <Badge icon="line-md:hash">
-                                {tag}
-                            </Badge>
                         ))}
                     </div>
-                </article>
-            </li>
+                </div>
+            </article>
         ))}
-    </ol>
+    </Carrousel>
 </Section>

@@ -7,18 +7,34 @@
 // Se pueden combinar: corners="lt rt"  o  corners="lt rt lb rb"
 interface Props {
     corners?: string;
+    color?: string;
+    line?: string;
+    lineWidth?: string;
+    class?: string;
 }
 
-const { corners = "" } = Astro.props;
+const { 
+    corners = "" ,
+    color = "",
+    line = "",
+    lineWidth = "",
+    class: className = ""
+} = Astro.props;
+
+const cornerStyle = [
+    color ? `--corner-color: ${color};` : "",
+    line ? `--corner-divider: ${line};` : "",
+    lineWidth ? `--corner-line-width: ${lineWidth};` : "",
+].filter(Boolean).join(" ");
 
 const cornerClasses: Record<string, string> = {
     lt: "rotate-180 me-auto",
     rt: "rotate-180 -scale-x-100 ms-auto",
-    lb: "rotate-180 me-auto",
-    rb: "rotate-180 -scale-x-100 ms-auto",
+    lb: "me-auto",
+    rb: "-scale-x-100 ms-auto",
 };
 
 const list = corners.split(/\s+/).filter(Boolean);
 ---
 
-{list.map((corner) => <div class={`corner-2xl ${cornerClasses[corner] ?? ""}`}></div>)}
+{list.map((corner) => <div style={cornerStyle || undefined} class={`corner-2xl ${cornerClasses[corner] ?? ""} ${className}`}></div>)}

@@ -1,0 +1,157 @@
+---
+import { Icon } from "astro-icon/components";
+
+export interface Props {
+    class?: string;
+    controls?: boolean;
+};
+
+const { class: className = "", controls = true } = Astro.props as Props;
+---
+
+<div class={`embla ${className}`.trim()} data-embla>
+    <div class="embla__viewport" data-embla-viewport>
+        <div class="embla__container">
+            <slot />
+        </div>
+    </div>
+
+    {controls && (
+        <div class="embla__controls">
+            <button class="embla__btn shadow-2xl" data-embla-prev type="button" aria-label="Previous">
+                <Icon name="mdi:arrow-left" class="embla__btn-icon"/>
+            </button>
+            <div class="embla__dots" data-embla-dots></div>
+            <button class="embla__btn shadow-2xl" data-embla-next type="button" aria-label="Next">
+                <Icon name="mdi:arrow-right" class="embla__btn-icon"/>
+            </button>
+        </div>
+    )}
+</div>
+
+<style is:global>
+    .embla {
+        --slide-size: 100%;
+        --slide-spacing: 1.5rem;
+        position: relative;
+    }
+
+    @media (min-width: 640px) {
+        .embla { --slide-size: 50%; }
+    }
+
+    .embla__viewport {
+        overflow: hidden;
+    }
+
+    .embla__container {
+        display: flex;
+        touch-action: pan-y pinch-zoom;
+        margin-left: calc(var(--slide-spacing) * -1);
+    }
+
+    .embla__slide {
+        flex: 0 0 var(--slide-size);
+        min-width: 0;
+        padding-left: var(--slide-spacing);
+    }
+
+    .embla__controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .embla__btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 9999px;
+        border: 1px solid var(--color-border);
+        background: var(--color-foreground);
+        backdrop-filter: blur(12px);
+        color: var(--color-background);
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .embla__btn:hover {
+        background: color-mix(in srgb, var(--color-foreground) 80%, transparent);
+    }
+
+    .embla__btn:disabled {
+        opacity: 0.3;
+        cursor: default;
+    }
+
+    .embla__btn-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    .embla__dots {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .embla__dot {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 9999px;
+        border: none;
+        background: color-mix(in srgb, var(--color-primary) 25%, transparent);
+        cursor: pointer;
+        padding: 0;
+        transition: background 0.2s, width 0.2s;
+    }
+
+    .embla__dot--active {
+        background: var(--color-foreground);
+        width: 1.5rem;
+        border-radius: 9999px;
+    }
+</style>
+
+<script>
+import EmblaCarousel from "embla-carousel";
+
+const viewport = document.querySelector<HTMLDivElement>("[data-embla-viewport]");
+if (viewport) {
+    const embla = EmblaCarousel(viewport, { align: "start", loop: false, dragFree: false });
+    const prevBtn = document.querySelector<HTMLButtonElement>("[data-embla-prev]");
+    const nextBtn = document.querySelector<HTMLButtonElement>("[data-embla-next]");
+    const dots = document.querySelector<HTMLDivElement>("[data-embla-dots]");
+
+    function update() {
+        const idx = embla.selectedScrollSnap();
+        const snaps = embla.scrollSnapList();
+
+        if (prevBtn) prevBtn.disabled = idx === 0;
+        if (nextBtn) nextBtn.disabled = idx === snaps.length - 1;
+
+        if (dots) {
+            dots.innerHTML = "";
+            snaps.forEach((_, i) => {
+                const btn = document.createElement("button");
+                btn.className = "embla__dot" + (i === idx ? " embla__dot--active" : "");
+                btn.type = "button";
+                btn.setAttribute("aria-label", `Go to slide ${i + 1}`);
+                btn.addEventListener("click", () => embla.scrollTo(i));
+                dots.appendChild(btn);
+            });
+        }
+    }
+
+    prevBtn?.addEventListener("click", () => embla.scrollPrev());
+    nextBtn?.addEventListener("click", () => embla.scrollNext());
+
+    embla.on("select", update);
+    embla.on("reInit", update);
+    update();
+}
+</script>

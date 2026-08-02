@@ -6,7 +6,7 @@ import { navLinks } from "@/data/site";
 
 <header class="sticky top-0 z-50 -mt-30 text-background flex flex-wrap justify-center">
     <div class="w-full py-1.5 bg-foreground"/>
-    <Corner corners="lt rt"/>
+    <Corner corners="lt rt" line="transparent"/>
     <nav class="hidden md:flex p-4 items-center justify-center bg-foreground rounded-b-2xl">
         <ul class="flex items-center gap-4">
             {navLinks.map((link) => (
@@ -18,7 +18,7 @@ import { navLinks } from "@/data/site";
             ))}
         </ul>
     </nav>    
-    <Corner corners="lb rb"/>
+    <Corner corners="lt rt" line="transparent"/>
 
     <div id="mobile-menu" class="md:hidden block bg-foreground border-t border-border/10 px-4 py-4">
         <ul class="flex flex-row gap-6 items-center justify-center">

@@ -37,10 +37,16 @@ html {
 .corner-2xl {
     width: calc(var(--spacing) * 4);
     height: calc(var(--spacing) * 4);
+    --corner-line-width: 1.5px;
+    --corner-blur: 0.5px;
     background: radial-gradient(
         circle at top left,
-        transparent var(--radius-2xl),
-        var(--color-foreground) calc(var(--radius-2xl))
+        var(--corner-cut, transparent) calc(var(--radius-2xl) - var(--corner-line-width) - var(--corner-blur)),
+        color-mix(in srgb, var(--corner-divider, var(--corner-color, var(--color-foreground))) 50%, var(--corner-cut, transparent)) calc(var(--radius-2xl) - var(--corner-line-width) - calc(var(--corner-blur) / 2)),
+        var(--corner-divider, var(--corner-color, var(--color-foreground))) calc(var(--radius-2xl) - var(--corner-line-width)),
+        var(--corner-divider, var(--corner-color, var(--color-foreground))) var(--radius-2xl),
+        color-mix(in srgb, var(--corner-divider, var(--corner-color, var(--color-foreground))) 50%, var(--corner-fill, var(--corner-color, var(--color-foreground)))) calc(var(--radius-2xl) + calc(var(--corner-blur) / 2)),
+        var(--corner-fill, var(--corner-color, var(--color-foreground))) calc(var(--radius-2xl) + var(--corner-blur))
     );
 }
 
