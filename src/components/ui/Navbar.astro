@@ -4,32 +4,42 @@ import Corner from "@/components/ui/Corner.astro";
 import { navLinks } from "@/data/site";
 ---
 
-<header class="sticky top-0 z-50 -mt-30 text-background flex flex-wrap justify-center">
-    <div class="w-full py-1.5 bg-foreground"/>
-    <Corner corners="lt rt" line="transparent"/>
-    <nav class="hidden md:flex p-4 items-center justify-center bg-foreground rounded-b-2xl">
-        <ul class="flex items-center gap-4">
-            {navLinks.map((link) => (
-                <li>
-                    <a href={link.href} aria-label={link.label} title={link.label} class="nav-link transition-colors duration-300 rounded-full p-2 inline-flex data-active:bg-background data-active:text-foreground">
-                        <Icon name={link.icon} class="size-6"/>
-                    </a>
-                </li>
-            ))}
-        </ul>
-    </nav>    
-    <Corner corners="lt rt" line="transparent"/>
+<header class="sticky top-0 z-50 -mt-30 text-background">
+    <div class="hidden md:flex flex-wrap justify-center">
+        <div class="w-full py-1.5 bg-foreground"/>
+        <Corner corners="lt rt" line="transparent"/>
+        <nav class=" p-4 items-center justify-center bg-foreground rounded-b-2xl">
+            <ul class="flex items-center gap-4">
+                {navLinks.map((link) => (
+                    <li>
+                        <a href={link.href} aria-label={link.label} title={link.label} class="nav-link transition-colors duration-300 rounded-full p-2 inline-flex data-active:bg-background data-active:text-foreground">
+                            <Icon name={link.icon} class="size-6"/>
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </nav>    
+        <Corner corners="lt rt" line="transparent"/>
+    </div>
 
-    <div id="mobile-menu" class="md:hidden block bg-foreground border-t border-border/10 px-4 py-4">
-        <ul class="flex flex-row gap-6 items-center justify-center">
-            {navLinks.map((link) => (
-                <li>
-                    <a href={link.href} aria-label={link.label} title={link.label} class="nav-link transition-colors duration-300 rounded-full p-2 inline-flex data-active:bg-background data-active:text-foreground">
-                        <Icon name={link.icon} class="size-7"/>
-                    </a>
-                </li>
-            ))}
-        </ul>
+    <div id="mobile-menu" class="fixed bottom-0 inset-x-0 z-50 md:hidden">
+        <div class="flex flex-wrap">
+            <div class="flex flex-wrap justify-between mx-2.5 -mb-0.5 w-full">
+                <Corner corners="rb" class="ml-0!"/>
+                <Corner corners="lb" class="mr-0!"/>
+            </div>
+            <nav class="w-full bg-foreground px-2 py-2 rounded-t-2xl">
+                <ul class="flex flex-row gap-6 items-center justify-center">
+                    {navLinks.map((link) => (
+                        <li>
+                            <a href={link.href} aria-label={link.label} title={link.label} class="nav-link transition-colors duration-300 rounded-full p-2 inline-flex data-active:bg-background data-active:text-foreground">
+                                <Icon name={link.icon} class="size-4"/>
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        </div>
     </div>
 </header>
 
