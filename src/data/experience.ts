@@ -2,18 +2,32 @@ import type { Experience } from "@/types";
 
 export const experience: Experience[] = [
     {
-        title           : "DESARROLLADOR FULL STACK | 2024 JULIO - ACTUALMENTE",
+        title           : "FULL STACK SENIOR | 2025 OCTUBRE - 2025 DICIEMBRE",
+        description     : [
+            "• Participé en la implementación de una arquitectura de microservicios utilizando un nuevo lenguaje para la compañía, colaborando en el diseño estructural, definición de responsabilidades y despliegue en AWS, asegurando su correcta integración con la plataforma principal.",
+            "• Contribuí al diseño y despliegue de servicios en la nube sobre AWS, apoyando la configuración de entornos, contenedorización y procesos de integración para garantizar escalabilidad y mantenibilidad del sistema.",
+            "• Desarrollé e implementé nuevas features dentro de la plataforma, participando activamente en el análisis técnico, desarrollo y puesta en producción de mejoras orientadas a optimizar la experiencia de usuario y el rendimiento del sistema.",
+            "• Colaboré en la iniciativa de integración de Inteligencia Artificial dentro de la plataforma, apoyando la implementación de microservicios que permitían la generación automática de reportes en PDF basados en datos de evaluación de desempeño de los usuarios.",
+            "• Apoyé la integración de los nuevos microservicios con la arquitectura existente, asegurando coherencia técnica, comunicación eficiente entre servicios y alineación con las buenas prácticas de desarrollo.",
+        ],
+        company         : "HCMFROT",
+        tags            : ["PYTHON", "DJANGO", "MICROSERVICIOS", "REACT", "AWS", "DOCKER", "GITLAB CI/CD", "NODE.JS", "INTELIGENCIA ARTIFICIAL"]
+    },
+    {
+        title           : "FULL STACK | 2024 JULIO - 2025 SEPTIEMBRE",
         description     : [
             "• Implementación de microservicios utilizando Docker y metodologia SOLID, conectados a un controlador en Symfony para mejorar la modularidad y escalabilidad del sistema.",
             "• Desarrollo de un bot en Node.js para automatizar diversas tareas dentro de la plataforma.",
             "• Integración de la API de Jira para gestionar organizaciones, asignar personas a tareas y generar tickets de soporte, optimizando el flujo de trabajo interno.",
-            "•  Diseño y mantenimiento de un módulo para el sistema de facturación, implementando mejoras significativas en el rendimiento de consultas y optimizando la performance general de la aplicación.",
+            "• Diseño y mantenimiento de un módulo para el sistema de facturación, implementando mejoras significativas en el rendimiento de consultas y optimizando la performance general de la aplicación.",
+            "• Contribuí al desarrollo del SGSI para una empresa de ciberseguridad, liderando parte de la arquitectura y la implementación de módulos ISO 27001.",
+            "• Mantención y evolución continua una aplicación de vulnerabilidades, incorporando nuevas funcionalidades, corrigiendo incidencias y optimizando el rendimiento general.",
         ],
         company         : "POLITE SPA",
         tags            : ["NODE.JS", "REACT-NATIVE", "PHP", "SYMFONY"]
     },
     {
-        title           : "DESARROLLADOR FULL STACK | 2024 FEBRERO - 2024 MAYO",
+        title           : "FULL STACK | 2024 FEBRERO - 2024 MAYO",
         description     : [
             "• Implementación de microservicios utilizando Docker y metodologia SOLID, conectados a un controlador en Symfony para mejorar la modularidad y escalabilidad del sistema.",
             "• Creación de una API para la gestión de Excel, modularizando su uso en la facturación y monitoreando errores mediante la integración de Sentry.",
@@ -24,7 +38,7 @@ export const experience: Experience[] = [
         tags            : ["PHP", "SYMFONY", "TWIG"]
     },
     {
-        title           : "DESARROLLADOR FULL STACK | 2023 MARZO - 2024 FEBRERO",
+        title           : "FULL STACK | 2023 MARZO - 2024 FEBRERO",
         description     : [
             "• Desarrollo de API de facturación electrónica con firma de XML utilizando PFX y envío automático al SII, además de la integración con una casilla de correo para procesar documentos.",
             "• Desarrollo de una aplicación de punto de venta full-stack con interfaz dinámica controlada por JSON, implementada con React en el front-end y microservicios en Python y Node.js para la gestión de facturación e inventario, usando MongoDB y MySQL.",
@@ -35,7 +49,7 @@ export const experience: Experience[] = [
         tags            : ["PYTHON", "NODE.JS", "REACT", "REACT-NATIVE", "PHP", "LARAVEL", "TAILWINDSCSS"]
     },
     {
-        title           : "DESARROLLADOR FULL STACK | 2022 MAYO - 2023 MARZO",
+        title           : "FULL STACK | 2022 MAYO - 2023 MARZO",
         description     : [
             "• Reestructuración de una aplicación GPS desarrollada en CodeIgniter, adaptándola para usuarios individuales en lugar de flotas, con funcionalidades adicionales para distintos clientes.",
             "• Configuración de Mikrotik y desarrollo de módulos para gestionar redes, incluyendo la creación de VLANs, máscaras de red, entre otros.",
@@ -46,7 +60,7 @@ export const experience: Experience[] = [
         tags            : ["CODEIGNITER", "PHP", "PYTHON", "JAVA", "ANTROID", "POWER BI", "BOOTSTRAP"]
     },
     {
-        title           : "DESARROLLADOR FULL STACK | 2021 AGOSTO - 2022 MARZO",
+        title           : "FULL STACK | 2021 MAYO - 2022 MARZO",
         description     : [
             "• Realización de scraping con C# utilizando Selenium para extraer boletas electrónicas desde una API con autenticación JWT.",
             "• Mantenimiento del programa administrativo de la empresa, incluyendo la creación de un módulo para notas de venta y consultas de boletas de honorarios.",

@@ -27,7 +27,7 @@ const sectionId = "experiences";
                 <div class="relative flex flex-col w-full">
                     <div class="flex items-end">
                         <div class="relative px-2 py-2 bg-primary border-2 border-b-0 border-foreground shrink-0 z-4 rounded-t-2xl">
-                            <Title size="xs">{item.company}</Title>
+                            <Title size="xs" class="max-w-40 md:max-w-100">{item.company}</Title>
                         </div>
                         <Corner corners="rb" line="var(--color-foreground)" color="var(--color-primary)" class="mx-0! -ml-0.5! relative z-6"/>
                         <Label size="xs" class="rounded-t-2xl rounded-br-none text-background! px-3 text-center bg-foreground ml-auto mr-3">
@@ -35,12 +35,21 @@ const sectionId = "experiences";
                             {item.title.split("|")[1]}
                         </Label>
                     </div>
-                    <div class="flex-1 bg-primary border-2 border-foreground p-6 pt-1 rounded-2xl rounded-tl-none -mt-0.5 w-full">
-                        {item.description.map((line) => (
-                            <Text>
-                                {line}
-                            </Text>
-                        ))}
+                    <div class="flex-1 bg-primary border-2 border-foreground p-6 pt-1 rounded-2xl rounded-tl-none -mt-0.5 w-full justify-between flex flex-col">
+                        <div>
+                            {item.description.map((line) => (
+                                <Text size="sm" class="text-bold!">
+                                    {line}
+                                </Text>
+                            ))}
+                        </div>
+                        <div class="flex flex-wrap gap-1 mt-4 items-end">
+                            {item.tags.map((tag) => (
+                                <Badge class="text-xs">
+                                    # {tag}
+                                </Badge>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </article>
