@@ -8,6 +8,11 @@
     --color-black-base: #0B0B0B;
 }
 
+::selection {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+}
+
 * {
     scrollbar-width: thin;
     scrollbar-color: var(--color-background) transparent;
