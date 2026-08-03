@@ -20,16 +20,12 @@ const MONTHS = [
 ];
 
 const LEVEL_CLASSES = [
-    "bg-foreground/5",
     "bg-primary/50",
-    "bg-primary/75",
-    "bg-primary/90",
-    "bg-primary",
+    "bg-foreground/40",
+    "bg-foreground/65",
+    "bg-foreground/90",
+    "bg-foreground",
 ];
-
-function isoDays(a: string, b: string) {
-    return Math.round((Date.parse(b + "T00:00:00Z") - Date.parse(a + "T00:00:00Z")) / 86400000);
-}
 
 function addDays(iso: string, days: number) {
     const d = new Date(Date.parse(iso + "T00:00:00Z") + days * 86400000);
@@ -118,7 +114,7 @@ const PITCH = CELL + GAP;
             <span class="text-xs text-foreground/60">{data.total} contributions in the past 365 days</span>
         </div>
 
-        <div class="mx-auto w-fit max-w-full overflow-x-auto px-16 pt-8 pb-1">
+        <div class="mx-auto w-fit max-w-full pt-8 pb-1">
             <div class="inline-flex flex-col">
                 <div
                     class="relative mb-1 h-5"
@@ -127,7 +123,7 @@ const PITCH = CELL + GAP;
                     {months.map((m, i) =>
                         m ? (
                             <span
-                                class="absolute top-0.5 text-[9px] leading-none text-foreground/50"
+                                class="absolute top-0 text-[9px] leading-none text-foreground/50"
                                 style={`left: ${i * PITCH}px`}
                             >
                                 {m.label}
