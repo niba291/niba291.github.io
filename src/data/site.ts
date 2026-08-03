@@ -3,6 +3,7 @@ export const site = {
     description: "Portafolio | Niba",
     name: "Nibaldo Chavez",
     role: "Desarrollador full stack",
+    username: "niba291",
     profileImage: "https://avatars.githubusercontent.com/u/63934510?v=4",
     social: {
         github: "https://github.com/niba291",

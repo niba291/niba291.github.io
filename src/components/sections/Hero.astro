@@ -1,6 +1,7 @@
 ---
 import Section from "@/components/ui/Section.astro";
 import Title from "@/components/ui/Title.astro";
+import GithubContributions from "@/components/ui/GithubContributions.astro";
 
 import { site } from "@/data/site";
 
@@ -16,5 +17,6 @@ const sectionId = "home";
         <Title size="lg">
             {site.role}
         </Title>
+        <GithubContributions/>
     </div>
 </Section>

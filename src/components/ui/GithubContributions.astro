@@ -1,0 +1,160 @@
+---
+import { getContributions, type GitHubContribution } from "@/services/github";
+import { site } from "@/data/site";
+
+import Label from "@/components/ui/Label.astro";
+
+interface Props {
+    username?: string;
+}
+
+const { username = site.social.github.split("/").pop() } = Astro.props as Props;
+
+const data = await getContributions(username!);
+
+type Day = { date: string; count: number; level: number; outside: boolean };
+
+const MONTHS = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+
+const LEVEL_CLASSES = [
+    "bg-foreground/5",
+    "bg-primary/50",
+    "bg-primary/75",
+    "bg-primary/90",
+    "bg-primary",
+];
+
+function isoDays(a: string, b: string) {
+    return Math.round((Date.parse(b + "T00:00:00Z") - Date.parse(a + "T00:00:00Z")) / 86400000);
+}
+
+function addDays(iso: string, days: number) {
+    const d = new Date(Date.parse(iso + "T00:00:00Z") + days * 86400000);
+    return d.toISOString().slice(0, 10);
+}
+
+function getUTCDay(iso: string) {
+    return new Date(Date.parse(iso + "T00:00:00Z")).getUTCDay();
+}
+
+function getUTCMonth(iso: string) {
+    return new Date(Date.parse(iso + "T00:00:00Z")).getUTCMonth();
+}
+
+function buildCalendar(contributions: GitHubContribution[]) {
+    if (contributions.length === 0) return { weeks: [] as Day[][], months: [] as ({ index: number; label: string; key: string } | null)[] };
+
+    const byDate = new Map<string, GitHubContribution>();
+    for (const c of contributions) byDate.set(c.date, c);
+
+    const firstIso = contributions[0].date;
+    const lastIso = contributions[contributions.length - 1].date;
+
+    const weeks: Day[][] = [];
+    const months: ({ index: number; label: string; key: string } | null)[] = [];
+
+    let cursor = addDays(firstIso, -getUTCDay(firstIso));
+
+    while (cursor <= lastIso) {
+        const week: Day[] = [];
+        for (let i = 0; i < 7; i++) {
+            const iso = cursor;
+            const c = byDate.get(iso);
+            week.push({
+                date: iso,
+                count: c?.count ?? 0,
+                level: c?.level ?? 0,
+                outside: iso < firstIso || iso > lastIso,
+            });
+            cursor = addDays(cursor, 1);
+        }
+        weeks.push(week);
+
+        const firstOfMonth = week.find((day) => !day.outside && day.date.endsWith("-01"));
+        if (firstOfMonth) {
+            months.push({ index: getUTCMonth(firstOfMonth.date), label: MONTHS[getUTCMonth(firstOfMonth.date)], key: firstOfMonth.date.slice(0, 7) });
+        } else {
+            const firstDay = week.find((day) => !day.outside);
+            if (months.length === 0 && firstDay) {
+                months.push({ index: getUTCMonth(firstDay.date), label: MONTHS[getUTCMonth(firstDay.date)], key: firstDay.date.slice(0, 7) });
+            } else {
+                months.push(null);
+            }
+        }
+    }
+
+    const daysPerMonth = new Map<string, number>();
+    for (const day of weeks.flat()) {
+        if (day.outside) continue;
+        const key = day.date.slice(0, 7);
+        daysPerMonth.set(key, (daysPerMonth.get(key) ?? 0) + 1);
+    }
+
+    for (let i = months.length - 1; i >= 0; i--) {
+        const m = months[i];
+        if (m) {
+            if ((daysPerMonth.get(m.key) ?? 0) < 7) months[i] = null;
+            break;
+        }
+    }
+
+    return { weeks, months };
+}
+
+const { weeks, months } = buildCalendar(data.contributions);
+
+const CELL = 10;
+const GAP = 4;
+const PITCH = CELL + GAP;
+---
+
+{data.contributions.length > 0 && (
+    <div class="w-full">
+        <div class="flex items-center justify-between mb-3">
+            <Label>GitHub Contributions</Label>
+            <span class="text-xs text-foreground/60">{data.total} contributions in the past 365 days</span>
+        </div>
+
+        <div class="mx-auto w-fit max-w-full overflow-x-auto px-16 pt-8 pb-1">
+            <div class="inline-flex flex-col">
+                <div
+                    class="relative mb-1 h-5"
+                    style={`width: ${weeks.length * PITCH - GAP}px`}
+                >
+                    {months.map((m, i) =>
+                        m ? (
+                            <span
+                                class="absolute top-0.5 text-[9px] leading-none text-foreground/50"
+                                style={`left: ${i * PITCH}px`}
+                            >
+                                {m.label}
+                            </span>
+                        ) : null
+                    )}
+                </div>
+
+                <div class="grid" style={`gap: ${GAP}px; grid-auto-flow: column; grid-template-rows: repeat(7, ${CELL}px); grid-auto-columns: ${CELL}px;`}>
+                    {weeks.flatMap((week) =>
+                        week.map((day) => (
+                            <span
+                                class={`gh-cell size-2.5 rounded-xs ${day.outside ? "bg-transparent" : LEVEL_CLASSES[day.level] ?? LEVEL_CLASSES[0]}`}
+                                {...(day.outside ? {} : { "data-tip": `${day.count} contrib. · ${day.date}` })}
+                            />
+                        ))
+                    )}
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-2 flex items-center justify-end gap-1.5 text-[10px] text-foreground/50">
+            <span>Less</span>
+            {LEVEL_CLASSES.map((cls) => (
+                <span class={`h-2.5 w-2.5 rounded-xs ${cls}`} />
+            ))}
+            <span>More</span>
+        </div>
+    </div>
+)}
