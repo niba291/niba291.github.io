@@ -1,8 +1,17 @@
+---
+interface Props {
+    class?: string;
+}
+
+const { class: className = "" } = Astro.props as Props;
+---
+
 <svg
     viewBox="0 0 42 42"
     xmlns="http://www.w3.org/2000/svg"
     role="img"
-    style="--on: #F5F5F5; --off: #404040; --dur: 1.050s"
+    class={className}
+    style="--on: var(--color-primary); --off: var(--color-foreground); --dur: 1.050s"
 >
     <title>Loading</title>
     <style>

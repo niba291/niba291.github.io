@@ -3,6 +3,7 @@ import { site } from "@/data";
 
 import Navbar from "@/components/ui/Navbar.astro";
 import Footer from "@/components/ui/Footer.astro";
+import Loader from "@/components/ui/Loader.astro";
 
 import "@/styles/global.css";
 ---
@@ -18,6 +19,9 @@ import "@/styles/global.css";
 	<title>{site.title}</title>
 </head>
 <body class="bg-foreground">
+	<div id="page-loader" class="fixed inset-0 z-100 flex items-center justify-center bg-background">
+		<Loader class="size-24 md:size-32"/>
+	</div>
 	<div class="bg-background py-3 mt-3 mx-3 rounded-t-2xl"/>
 	<main class="bg-background mx-3 pt-2.5 -mt-1">
 		<Navbar/>
@@ -26,3 +30,13 @@ import "@/styles/global.css";
 	<Footer/>
 </body>
 </html>
+
+<script>
+	window.addEventListener("load", () => {
+		const loader = document.getElementById("page-loader");
+		if (!loader) return;
+		loader.style.opacity = "0";
+		loader.style.transition = "opacity 0.5s ease";
+		setTimeout(() => loader.remove(), 600);
+	});
+</script>
