@@ -102,29 +102,27 @@ function buildCalendar(contributions: GitHubContribution[]) {
 
 const { weeks, months } = buildCalendar(data.contributions);
 
-const CELL = 10;
-const GAP = 4;
-const PITCH = CELL + GAP;
 ---
+
 
 {data.contributions.length > 0 && (
     <div class="w-full">
-        <div class="flex items-center justify-between mb-3">
+        <div class="flex flex-wrap items-center md:justify-between md:mb-3">
             <Label>GitHub Contributions</Label>
-            <span class="text-xs text-foreground/60">{data.total} contributions in the past 365 days</span>
+            <span class="text-xs text-foreground/60 w-full md:w-auto">{data.total} contributions in the past 365 days</span>
         </div>
 
-        <div class="mx-auto w-fit max-w-full pt-8 pb-1">
+        <div class="gh-grid mx-auto w-fit max-w-full pt-4 md:pt-8 pb-1 overflow-x-auto md:overflow-visible">
             <div class="inline-flex flex-col">
                 <div
                     class="relative mb-1 h-5"
-                    style={`width: ${weeks.length * PITCH - GAP}px`}
+                    style={`width: calc(var(--gh-cell, 10px) * ${weeks.length} + var(--gh-gap, 4px) * ${weeks.length - 1})`}
                 >
                     {months.map((m, i) =>
                         m ? (
                             <span
                                 class="absolute top-0 text-[9px] leading-none text-foreground/50"
-                                style={`left: ${i * PITCH}px`}
+                                style={`left: calc(var(--gh-cell, 10px) * ${i} + var(--gh-gap, 4px) * ${i})`}
                             >
                                 {m.label}
                             </span>
@@ -132,11 +130,11 @@ const PITCH = CELL + GAP;
                     )}
                 </div>
 
-                <div class="grid" style={`gap: ${GAP}px; grid-auto-flow: column; grid-template-rows: repeat(7, ${CELL}px); grid-auto-columns: ${CELL}px;`}>
+                <div class="grid" style={`gap: var(--gh-gap, 4px); grid-auto-flow: column; grid-template-rows: repeat(7, var(--gh-cell, 10px)); grid-auto-columns: var(--gh-cell, 10px);`}>
                     {weeks.flatMap((week) =>
                         week.map((day) => (
                             <span
-                                class={`gh-cell size-2.5 rounded-xs ${day.outside ? "bg-transparent" : LEVEL_CLASSES[day.level] ?? LEVEL_CLASSES[0]}`}
+                                class={`gh-cell rounded-xs ${day.outside ? "bg-transparent" : LEVEL_CLASSES[day.level] ?? LEVEL_CLASSES[0]}`}
                                 {...(day.outside ? {} : { "data-tip": `${day.count} contrib. · ${day.date}` })}
                             />
                         ))
@@ -145,10 +143,10 @@ const PITCH = CELL + GAP;
             </div>
         </div>
 
-        <div class="mt-2 flex items-center justify-end gap-1.5 text-[10px] text-foreground/50">
+        <div class="mt-2 flex items-center md:justify-end gap-1.5 text-[10px] text-foreground/50">
             <span>Less</span>
             {LEVEL_CLASSES.map((cls) => (
-                <span class={`h-2.5 w-2.5 rounded-xs ${cls}`} />
+                <span class={`gh-cell rounded-xs ${cls}`} />
             ))}
             <span>More</span>
         </div>

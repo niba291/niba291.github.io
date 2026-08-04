@@ -1,12 +1,55 @@
 ---
-interface Props {
-    href: string;
-    download?: string;
+export interface Props {
+    type?: "button" | "submit" | "reset";
+    variant?: "primary" | "secondary" | "outline" | "ghost";
+    size?: "xs" | "sm" | "md" | "lg";
+    disabled?: boolean;
+    class?: string;
+    href?: string;
+    rel?: string;
+    download?: boolean;
+    target?: "_self" | "_blank" | "_parent" | "_top";
 }
 
-const { href, download } = Astro.props;
+const { 
+    type = "button", 
+    variant = "primary", 
+    size = "md", 
+    disabled = false, 
+    class: className = "",
+    href,
+    rel,
+    download = false,
+    target = "_self"
+} = Astro.props as Props;
+
+const variants = {
+    primary: "bg-foreground text-background border border-foreground hover:bg-primary hover:text-foreground",
+    secondary: "bg-primary text-foreground hover:bg-foreground",
+    outline: "border border-foreground text-foreground hover:bg-foreground/10",
+    ghost: "text-foreground hover:bg-foreground/10",
+};
+
+const sizes = {
+    xs: "px-2.5 py-1 text-xs",
+    sm: "px-3 py-1.5 text-sm",
+    md: "px-4 py-2 text-sm",
+    lg: "px-6 py-3 text-base",
+};
+
+const stateClasses = disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer";
+
+const Tag = href ? "a" : "button";
 ---
 
-<a {href} target="_blank" class="bg-black-base text-white hover:opacity-75 px-3 py-[0.3rem] rounded mr-3 flex flex-wrap mb-5 md:mb-0 w-16 md:w-auto justify-center" {...(download ? { download: "curriculum_nibaldochavez" } : {})}>
-    <slot/>
-</a>
+<Tag
+    type={type}
+    disabled={disabled}
+    class={`inline-flex items-center justify-center gap-1.5 rounded-full font-medium transition-colors ${variants[variant]} ${sizes[size]} ${stateClasses} ${className}`.trim()}
+    href={href}
+    rel={rel}
+    download={download}
+    target={target}
+>
+    <slot />
+</Tag>

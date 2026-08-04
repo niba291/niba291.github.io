@@ -10,6 +10,36 @@
 
 .gh-cell {
     position: relative;
+    width: var(--gh-cell, 10px);
+    height: var(--gh-cell, 10px);
+}
+
+@media (max-width: 767px) {
+    .gh-grid {
+        --gh-cell: 5px;
+        --gh-gap: 2px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .gh-grid {
+        --gh-cell: 7px;
+        --gh-gap: 2px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .gh-grid {
+        --gh-cell: 8px;
+        --gh-gap: 3px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .gh-grid {
+        --gh-cell: 10px;
+        --gh-gap: 4px;
+    }
 }
 
 .gh-cell::before {
@@ -67,6 +97,7 @@
 
 ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -74,17 +105,28 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(20, 184, 166, 0.3);
+    background: var(--color-background);
     border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(20, 184, 166, 0.5);
+    background: var(--color-background);
 }
 
 html {
     scroll-behavior: smooth;
 }
+
+section[id] {
+    scroll-margin-top: -5rem;
+}
+
+@media (min-width: 768px) {
+    section[id] {
+        scroll-margin-top: 0;
+        scroll-margin-bottom: 0;
+    }
+} 
 
 .corner-2xl {
     width: calc(var(--spacing) * 4);
@@ -102,3 +144,10 @@ html {
     );
 }
 
+.inverted {
+	clip-path: url("#clip");
+	background-color: var(--color-foreground);
+	aspect-ratio: 1 / 1;
+	background-image: var(--profile-image);
+	box-sizing: border-box;
+}

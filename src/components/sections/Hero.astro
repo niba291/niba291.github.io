@@ -1,6 +1,10 @@
 ---
+import { Icon } from "astro-icon/components";
+
 import Section from "@/components/ui/Section.astro";
 import Title from "@/components/ui/Title.astro";
+import Button from "@/components/ui/Button.astro";
+import Link from "@/components/ui/Link.astro";
 import GithubContributions from "@/components/ui/GithubContributions.astro";
 
 import { site } from "@/data/site";
@@ -8,23 +12,47 @@ import { site } from "@/data/site";
 const sectionId = "home";
 
 ---
-<Section id={sectionId} class="flex flex-wrap h-screen">    
-    <div class="flex flex-col space-y-8 m-auto w-1/2">
+<Section id={sectionId} class="flex flex-wrap md:flex-row h-screen">    
+    <div class="flex flex-col py-8 space-y-4 md:space-y-8 m-auto md:w-1/2 text-center md:text-left order-2 md:order-1">
         <Title as="h1" size="xl">
             {site.name}
         </Title>
         <Title size="lg">
             {site.role}
         </Title>
+        <Link href={site.social.email} class="text-xl">
+            <Icon name="solar:letter-opened-bold" class="size-8"/>
+            {site.social.email.replace("mailto:", "")}
+        </Link>
     </div>
-    <div class="flex flex-col space-y-8 m-auto w-1/2">
-        <img
-            src={site.profileImage}
-            alt="Profile picture"
-            class="rounded-full size-50 md:size-80 object-cover mx-auto border-2 border-foreground"
-        />
+    <div class="space-y-8 m-auto w-1/2 relative flex justify-center items-center order-1 md:order-2">
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: block;position: absolute" width="0" height="0">
+            <defs>
+                <clipPath id="clip" clipPathUnits="objectBoundingBox">
+                    <path d="M0.4755,0H0.6961A0.3039,0.3039,0,0,1,1,0.3039V0.5098A0.1667,0.1667,0,0,1,0.8333,0.6765H0.8137A0.1471,0.1471,0,0,0,0.6667,0.8235V0.8333A0.1667,0.1667,0,0,1,0.5,1H0.3529A0.3529,0.3529,0,0,1,0,0.6471V0.4755A0.4755,0.4755,0,0,1,0.4755,0Z"/>
+                </clipPath>
+            </defs>
+        </svg>
+        <div class="inverted size-50 md:size-100 p-1 relative">
+            <img
+                src={site.profileImage}
+                alt="Profile picture"
+                class="object-cover inverted"
+            />
+        </div>
+        <div class="absolute -bottom-2 z-10 gap-1 flex">
+            <Button href={site.social.github} target="_blank" size="lg" class="size-14 md:size-20 p-0! border-background! border-3 md:px-6 md:py-3 md:text-base">
+                <Icon name="mdi:github" class="size-8 md:size-10"/>
+            </Button>
+            <Button href={site.social.resume} download={true} size="lg" class="size-14 md:size-20 p-0! border-background! border-3 md:px-6 md:py-3 md:text-base">
+                <Icon name="solar:file-download-bold" class="size-8 md:size-10"/>
+            </Button>
+            <Button href={site.social.linkedin} target="_blank" size="lg" class="size-14 md:size-20 p-0! border-background! border-3 md:px-6 md:py-3 md:text-base">
+                <Icon name="mdi:linkedin" class="size-8 md:size-10"/>
+            </Button>
+        </div>
     </div>
-    <div class="flex flex-col space-y-8 m-auto md:w-2/3">
+    <div class="flex flex-col m-auto md:w-2/3 order-3">
         <GithubContributions/>
     </div>
 </Section>
