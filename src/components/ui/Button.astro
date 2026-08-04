@@ -9,6 +9,9 @@ export interface Props {
     rel?: string;
     download?: boolean;
     target?: "_self" | "_blank" | "_parent" | "_top";
+    "data-embla-next"?: boolean;
+    "data-embla-prev"?: boolean;
+    "aria-label"?: string;
 }
 
 const { 
@@ -20,7 +23,10 @@ const {
     href,
     rel,
     download = false,
-    target = "_self"
+    target = "_self",
+    "data-embla-next": dataEmblaNext,
+    "data-embla-prev": dataEmblaPrev,
+    "aria-label": ariaLabel,
 } = Astro.props as Props;
 
 const variants = {
@@ -50,6 +56,9 @@ const Tag = href ? "a" : "button";
     rel={rel}
     download={download}
     target={target}
+    data-embla-next={dataEmblaNext}
+    data-embla-prev={dataEmblaPrev}
+    aria-label={ariaLabel}
 >
     <slot />
 </Tag>

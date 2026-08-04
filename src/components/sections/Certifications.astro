@@ -1,0 +1,52 @@
+---
+import { Icon } from "astro-icon/components";
+
+import Section from "@/components/ui/Section.astro";
+import Title from "@/components/ui/Title.astro";
+import Text from "@/components/ui/Text.astro";
+import Badge from "@/components/ui/Badge.astro";
+
+import { certificates } from "@/data";
+
+const sectionId = "certifications";
+---
+
+<Section
+    id={sectionId}
+    badge="Certificados"
+    badgeIcon="solar:documents-bold"
+    title="Certificaciones"
+    description="Cursos y certificaciones que respaldan mi formación técnica."
+>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {certificates.map((cert) => (
+            <a
+                href={cert.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex flex-col overflow-hidden rounded-2xl border-2 border-foreground bg-primary transition-transform duration-300 hover:-translate-y-1"
+            >
+                <div class="relative overflow-hidden">
+                    <img
+                        src={cert.img}
+                        alt={cert.title}
+                        loading="lazy"
+                        class="aspect-[4/3] w-full object-cover"
+                    />
+                    <div class="absolute inset-0 flex items-center justify-center bg-foreground/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        <Icon name="solar:arrow-right-up-bold" class="size-10 text-background"/>
+                    </div>
+                </div>
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                    <Title size="sm">{cert.title}</Title>
+                    <Text size="sm" class="text-foreground/70 flex-1">{cert.description}</Text>
+                    <div class="flex flex-wrap gap-1">
+                        {cert.tags.map((tag) => (
+                            <Badge class="text-xs"># {tag}</Badge>
+                        ))}
+                    </div>
+                </div>
+            </a>
+        ))}
+    </div>
+</Section>

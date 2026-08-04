@@ -1,6 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
 
+import Button from "@/components/ui/Button.astro";
+
 export interface Props {
     class?: string;
     controls?: boolean;
@@ -18,13 +20,13 @@ const { class: className = "", controls = true } = Astro.props as Props;
 
     {controls && (
         <div class="embla__controls">
-            <button class="embla__btn shadow-2xl" data-embla-prev type="button" aria-label="Previous">
-                <Icon name="mdi:arrow-left" class="embla__btn-icon"/>
-            </button>
+            <Button class="embla__btn" data-embla-prev type="button" aria-label="Previous">
+                <Icon name="mdi:arrow-left"/>
+            </Button>
             <div class="embla__dots" data-embla-dots></div>
-            <button class="embla__btn shadow-2xl" data-embla-next type="button" aria-label="Next">
-                <Icon name="mdi:arrow-right" class="embla__btn-icon"/>
-            </button>
+            <Button class="embla__btn" data-embla-next type="button" aria-label="Next">
+                <Icon name="mdi:arrow-right"/>
+            </Button>
         </div>
     )}
 </div>
@@ -64,33 +66,9 @@ const { class: className = "", controls = true } = Astro.props as Props;
         margin-top: 2rem;
     }
 
-    .embla__btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 9999px;
-        border: 1px solid var(--color-border);
-        background: var(--color-foreground);
-        backdrop-filter: blur(12px);
-        color: var(--color-background);
-        cursor: pointer;
-        transition: background 0.2s;
-    }
-
-    .embla__btn:hover {
-        background: color-mix(in srgb, var(--color-foreground) 80%, transparent);
-    }
-
     .embla__btn:disabled {
-        opacity: 0.3;
+        opacity: 0.3 !important;
         cursor: default;
-    }
-
-    .embla__btn-icon {
-        width: 1.25rem;
-        height: 1.25rem;
     }
 
     .embla__dots {
