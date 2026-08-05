@@ -21,5 +21,12 @@ export const certificates: Certificate[] = [
         url             : "https://www.udemy.com/certificate/UC-137830a0-1dfb-4505-aad9-eed73fde5274/",
         img             : "https://udemy-certificate.s3.amazonaws.com/image/UC-137830a0-1dfb-4505-aad9-eed73fde5274.jpg?v=1737460551000",
         tags            : ["NODE JS", "EXPRESS", "API", "BACK-END", "NEXT JS"]
+    },
+    {
+        title           : "Certificaciones ISO 27001",
+        description     : "Curso sobre el estándar ISO 27001 para la gestión de la seguridad de la información.",
+        url             : "https://www.udemy.com/certificate/UC-b6eeb1f8-5de9-4a96-8bec-8c8c3856db54/",
+        img             : "https://udemy-certificate.s3.amazonaws.com/image/UC-b6eeb1f8-5de9-4a96-8bec-8c8c3856db54.jpg",
+        tags            : ["ISO 27001", "SEGURIDAD", "SGSI"]
     }
 ];

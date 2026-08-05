@@ -2,9 +2,9 @@
 import { Icon } from "astro-icon/components";
 
 import Section from "@/components/ui/Section.astro";
-import Title from "@/components/ui/Title.astro";
 import Text from "@/components/ui/Text.astro";
 import Badge from "@/components/ui/Badge.astro";
+import Link from "@/components/ui/Link.astro";
 
 import { certificates } from "@/data";
 
@@ -18,35 +18,75 @@ const sectionId = "certifications";
     title="Certificaciones"
     description="Cursos y certificaciones que respaldan mi formación técnica."
 >
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {certificates.map((cert) => (
-            <a
-                href={cert.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group flex flex-col overflow-hidden rounded-2xl border-2 border-foreground bg-primary transition-transform duration-300 hover:-translate-y-1"
-            >
-                <div class="relative overflow-hidden">
-                    <img
-                        src={cert.img}
-                        alt={cert.title}
-                        loading="lazy"
-                        class="aspect-[4/3] w-full object-cover"
-                    />
-                    <div class="absolute inset-0 flex items-center justify-center bg-foreground/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        <Icon name="solar:arrow-right-up-bold" class="size-10 text-background"/>
+        <div class="flex flex-col md:flex-row gap-2 md:gap-4 md:h-145 overflow-hidden" role="list">
+            {certificates.map((svc, index) => (
+                <details
+                    class="relative bg-primary group md:flex-1 transition-all duration-500 ease-in-out rounded-3xl border border-foreground open:md:flex-10"
+                    data-services
+                    {...(index === 0) ? {open: "true"} : {}}
+                >
+                    <div class="absolute inset-0 overflow-hidden rounded-3xl" aria-hidden="true">
+                        <img
+                            src={svc.img}
+                            alt=""
+                            loading="lazy"
+                            class="h-full w-full object-cover"
+                        />
+                        <div class="absolute inset-0 bg-linear-to-t from-primary via-primary md:via-primary/70 to-primary/30"></div>
                     </div>
-                </div>
-                <div class="flex flex-1 flex-col gap-3 p-5">
-                    <Title size="sm">{cert.title}</Title>
-                    <Text size="sm" class="text-foreground/70 flex-1">{cert.description}</Text>
-                    <div class="flex flex-wrap gap-1">
-                        {cert.tags.map((tag) => (
-                            <Badge class="text-xs"># {tag}</Badge>
-                        ))}
+
+                    <summary class="relative flex md:flex-col items-center gap-3 md:gap-4 p-5 md:p-6 md:w-20 cursor-pointer list-none select-none [&::-webkit-details-marker]:hidden [&::marker]:hidden">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors" aria-hidden="true">
+                            <Icon name="solar:code-file-bold" class="size-5"/>
+                        </div>
+                        <Text
+                            as="span"
+                            size="base"
+                            color="default"
+                            class="font-semibold tracking-widest  md:h-1/2 md:[writing-mode:vertical-rl] md:[text-orientation:mixed] md:uppercase"
+                        >
+                            {svc.title}
+                        </Text>
+                    </summary>
+
+                    <div class="relative px-5 pb-8 h-90 flex flex-col justify-end gap-4 md:px-6 md:absolute md:left-24 md:top-0 md:right-0 md:h-full">
+                        <Text size="lg" class="font-medium">
+                            {svc.description}
+                        </Text>
+                        <div class="flex flex-wrap gap-1">
+                            {svc.tags.map((tag) => (
+                                <Badge class="text-xs">
+                                    # {tag}
+                                </Badge>
+                            ))}
+                        </div>
+                        <Link
+                            href={svc.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-sm font-medium text-foreground! hover:text-primary/80 transition-colors"
+                        >
+                            Certificado
+                            <Icon name="solar:arrow-right-bold" class="size-6 inline-block mr-1"/>
+                        </Link>
                     </div>
-                </div>
-            </a>
-        ))}
-    </div>
+                </details>
+            ))}
+        </div>
 </Section>
+
+<script>
+    const details = document.querySelectorAll("details[data-services]");
+
+    details.forEach((detail) => {
+        detail.addEventListener("mouseenter", () => {
+            const openDetails = document.querySelectorAll("details[data-services][open]");
+            openDetails.forEach((item) => {
+                if (detail != item) {
+                    item.removeAttribute("open");
+                }
+            });
+            detail.setAttribute("open", "");
+        });
+    });
+</script>
