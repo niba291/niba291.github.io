@@ -1,0 +1,75 @@
+---
+import { Icon } from "astro-icon/components";
+
+import Section from "@/components/ui/Section.astro";
+import Corner from "@/components/ui/Corner.astro";
+import Title from "@/components/ui/Title.astro";
+import Text from "@/components/ui/Text.astro";
+import Badge from "@/components/ui/Badge.astro";
+import Button from "@/components/ui/Button.astro";
+
+import { projects } from "@/data";
+
+const sectionId = "projects";
+---
+
+<Section
+    id={sectionId}
+    badge="Proyectos"
+    badgeIcon="solar:folder-bold"
+    title="Proyectos destacados"
+    description="Una selección de proyectos que he desarrollado, cada uno con su propio repositorio en GitHub."
+>
+    <ul class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8" role="list">
+        {projects.map((project) => (
+            <li class="flex">
+                <article class="group relative flex flex-col w-full" itemscope itemtype="https://schema.org/CreativeWork">
+                    <div class="flex items-end">
+                        <div class="relative px-4 py-2 bg-primary border-2 border-b-0 border-foreground shrink-0 z-4 rounded-t-2xl flex items-center gap-2">
+                            <Icon name="solar:folder-bold" class="size-4 text-secondary shrink-0"/>
+                            <Title size="xs" itemprop="name">{project.title}</Title>
+                        </div>
+                        <Corner corners="rb" line="var(--color-foreground)" color="var(--color-primary)" class="mx-0! -ml-0.5! relative z-6"/>
+                    </div>
+
+                    <div class="flex-1 bg-primary border-2 border-foreground rounded-2xl rounded-tl-none -mt-0.5 overflow-hidden flex flex-col">
+                        <div class="relative overflow-hidden" aria-hidden="true">
+                            <img
+                                src={typeof project.img === "string" ? project.img : project.img.src}
+                                alt={project.title}
+                                loading="lazy"
+                                class="aspect-video w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                            />
+                            <div class="absolute inset-0 bg-linear-to-t from-primary via-primary/20 to-transparent"></div>
+                        </div>
+
+                        <div class="flex flex-1 flex-col gap-4 p-5">
+                            <Text size="sm" itemprop="description">
+                                {project.description}
+                            </Text>
+
+                            <div class="flex flex-wrap gap-1">
+                                {project.tags.map((tag) => (
+                                    <Badge class="text-xs">
+                                        # {tag}
+                                    </Badge>
+                                ))}
+                            </div>
+
+                            <div class="flex gap-2 pt-1 mt-auto">
+                                <Button href={project.github} target="_blank" rel="noopener noreferrer" variant="outline" size="sm" class="flex-1">
+                                    <Icon name="mdi:github"/>
+                                    Código
+                                </Button>
+                                <Button href={project.live} target="_blank" rel="noopener noreferrer" size="sm" class="flex-1">
+                                    <Icon name="solar:arrow-up-bold"/>
+                                    Demo
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </li>
+        ))}
+    </ul>
+</Section>
