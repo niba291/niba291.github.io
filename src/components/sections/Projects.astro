@@ -48,15 +48,15 @@ const sectionId = "projects";
                                 {project.description}
                             </Text>
 
-                            <div class="flex flex-wrap gap-1">
-                                {project.tags.map((tag) => (
-                                    <Badge class="text-xs">
-                                        # {tag}
-                                    </Badge>
-                                ))}
-                            </div>
 
-                            <div class="flex gap-2 pt-1 mt-auto">
+                            <div class="flex flex-wrap gap-2 pt-1 mt-auto">
+                                <div class="flex flex-wrap gap-1 w-full">
+                                    {project.tags.map((tag) => (
+                                        <Badge class="text-xs">
+                                            # {tag}
+                                        </Badge>
+                                    ))}
+                                </div>
                                 <Button href={project.github} target="_blank" rel="noopener noreferrer" variant="outline" size="sm" class="flex-1">
                                     <Icon name="mdi:github"/>
                                     Código
