@@ -12,6 +12,7 @@ export interface Props {
     icon?: string;
     title?: string;
     titleClass?: string;
+    itemprop?: string;
     bodyClass?: string;
 };
 
@@ -23,6 +24,7 @@ const {
     icon = "",
     title = "",
     titleClass = "",
+    itemprop,
     bodyClass = "",
 } = Astro.props as Props;
 ---
@@ -37,7 +39,7 @@ const {
                 <Icon name={icon} class="size-4 text-secondary shrink-0"/>
             )}
             {title !== "" ? (
-                <Title size="xs">{title}</Title>
+                <Title size="xs" itemprop={itemprop}>{title}</Title>
             ) : (
                 <slot name="title" />
             )}
