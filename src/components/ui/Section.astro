@@ -1,6 +1,4 @@
 ---
-import Reveal from "astro-reveal/Reveal.astro";
-
 import Title from "@/components/ui/Title.astro";
 import Text from "@/components/ui/Text.astro";
 import Badge from "@/components/ui/Badge.astro";
@@ -24,7 +22,7 @@ const {
 } = Astro.props as Props;
 ---
 
-<Reveal as="section" id={id} animation="scale" distance="3rem" class={`relative min-h-full overflow-hidden z-10 mx-auto max-w-7xl px-4 pt-26 pb-12 sm:px-6 lg:px-8 ${className}`.trim()}>
+<section id={id} class={`relative min-h-full overflow-hidden z-10 mx-auto max-w-7xl px-4 pt-26 pb-12 sm:px-6 lg:px-8 ${className}`.trim()}>
     {(title !== "") && (
         <div class="flex flex-col gap-4 mb-16 items-center text-center">
             <Badge icon={badgeIcon}>
@@ -39,5 +37,5 @@ const {
         </div>
     )}
     <slot />
-</Reveal>
+</section>
 
