@@ -1,0 +1,52 @@
+---
+import { Icon } from "astro-icon/components";
+
+import Corner from "@/components/ui/Corner.astro";
+import Title from "@/components/ui/Title.astro";
+
+export interface Props {
+    class?: string;
+    tag?: "article" | "li" | "div";
+    group?: boolean;
+    schema?: boolean;
+    icon?: string;
+    title?: string;
+    titleClass?: string;
+    bodyClass?: string;
+};
+
+const {
+    class: className = "",
+    tag: Tag = "article",
+    group = false,
+    schema = false,
+    icon = "",
+    title = "",
+    titleClass = "",
+    bodyClass = "",
+} = Astro.props as Props;
+---
+
+<Tag
+    class={`relative flex flex-col w-full ${group ? "group" : ""} ${className}`.trim()}
+    {...(schema ? { itemscope: "", itemtype: "https://schema.org/CreativeWork" } : {})}
+>
+    <div class="flex items-end">
+        <div class={`relative px-2 py-2 bg-primary border-2 border-b-0 border-foreground shrink-0 z-4 rounded-t-2xl flex items-center gap-2 ${titleClass}`.trim()}>
+            {icon !== "" && (
+                <Icon name={icon} class="size-4 text-secondary shrink-0"/>
+            )}
+            {title !== "" ? (
+                <Title size="xs">{title}</Title>
+            ) : (
+                <slot name="title" />
+            )}
+        </div>
+        <Corner corners="rb" line="var(--color-foreground)" color="var(--color-primary)" class="mx-0! -ml-0.5! relative z-6"/>
+        <slot name="header" />
+    </div>
+
+    <div class={`flex-1 bg-primary border-2 border-foreground rounded-2xl rounded-tl-none -mt-0.5 flex flex-col ${bodyClass}`.trim()}>
+        <slot />
+    </div>
+</Tag>
