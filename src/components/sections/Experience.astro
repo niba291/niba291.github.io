@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+
 import Section from "@/components/ui/Section.astro";
 import Carrousel from "@/components/ui/Carrousel.astro";
 import Card from "@/components/ui/Card.astro";
@@ -34,13 +36,25 @@ const sectionId = "experiences";
                     </Label>
                 </Fragment>
 
-                <div>
-                    {item.description.map((line) => (
-                        <Text size="sm" class="text-bold!">
-                            {line}
-                        </Text>
-                    ))}
-                </div>
+                <details class="group" data-expand>
+                    <div class="relative">
+                        <div class="max-h-40 overflow-hidden transition-[max-height] duration-500 ease-in-out group-open:max-h-[40rem] md:max-h-none">
+                            {item.description.map((line) => (
+                                <Text size="sm" class="text-bold!">
+                                    {line}
+                                </Text>
+                            ))}
+                        </div>
+                        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-primary to-transparent transition-opacity duration-500 group-open:opacity-0 md:hidden"></div>
+                    </div>
+                    <summary class="list-none cursor-pointer select-none [&::-webkit-details-marker]:hidden [&::marker]:hidden md:hidden">
+                        <span class="flex items-center justify-center gap-1.5 mt-3 text-sm font-semibold text-foreground">
+                            <span class="group-open:hidden">Ver más</span>
+                            <span class="hidden group-open:inline">Ver menos</span>
+                            <Icon name="solar:alt-arrow-down-bold" class="size-4 transition-transform duration-300 group-open:rotate-180"/>
+                        </span>
+                    </summary>
+                </details>
 
                 <div class="flex flex-wrap gap-1 mt-4 items-end">
                     {item.tags.map((tag) => (
@@ -53,3 +67,11 @@ const sectionId = "experiences";
         ))}
     </Carrousel>
 </Section>
+
+<style>
+    @media (min-width: 768px) {
+        details[data-expand]:not([open]) > div {
+            display: block;
+        }
+    }
+</style>
