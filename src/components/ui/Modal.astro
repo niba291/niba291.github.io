@@ -1,0 +1,83 @@
+---
+import { Icon } from "astro-icon/components";
+
+import Title from "@/components/ui/Title.astro";
+import Button from "@/components/ui/Button.astro";
+
+interface Props {
+    id: string;
+    title?: string;
+    class?: string;
+    closeIcon?: string;
+    contentClass?: string;
+}
+
+const {
+    id,
+    title = "",
+    class: className = "",
+    closeIcon = "solar:close-circle-bold",
+    contentClass = "",
+} = Astro.props as Props;
+
+const hasTitleSlot = Astro.slots.has("title");
+---
+
+<dialog
+    id={id}
+    data-modal
+    class={`m-auto p-0 w-full max-w-lg max-h-[85dvh] flex flex-col rounded-2xl border-2 border-foreground bg-background text-foreground shadow-2xl backdrop:bg-foreground/60 backdrop:backdrop-blur-sm not-open:hidden ${className}`.trim()}
+>
+    <div class="flex shrink-0 items-center gap-2 border-b border-foreground px-5 py-3">
+        {hasTitleSlot ? (
+            <slot name="title" class="flex-1" />
+        ) : (
+            title !== "" && (
+                <Title as="h3" size="xs" class="flex-1">
+                    {title}
+                </Title>
+            )
+        )}
+        <Button size="xs" variant="ghost" class="p-0!" data-modal-close aria-label="Cerrar">
+            <Icon name={closeIcon} class="size-6"/>
+        </Button>
+    </div>
+    <div class={`overflow-y-auto px-5 py-4 ${contentClass}`.trim()}>
+        <slot />
+    </div>
+</dialog>
+
+<script>
+    function getModal(id: string) {
+        return document.getElementById(id) as HTMLDialogElement | null;
+    }
+
+    document.querySelectorAll<HTMLElement>("[data-modal-open]").forEach((trigger) => {
+        const id = trigger.getAttribute("data-modal-open");
+        if (!id) return;
+        trigger.addEventListener("click", () => {
+            getModal(id)?.showModal();
+            document.body.style.overflow = "hidden";
+        });
+    });
+
+    document.querySelectorAll<HTMLElement>("[data-modal-close]").forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+            trigger.closest<HTMLDialogElement>("dialog[data-modal]")?.close();
+            document.body.style.overflow = "";
+        });
+    });
+
+    document.querySelectorAll<HTMLDialogElement>("dialog[data-modal]").forEach((dialog) => {
+        dialog.addEventListener("click", (event) => {
+            const bounds = dialog.getBoundingClientRect();
+            const isInside =
+                event.clientX >= bounds.left &&
+                event.clientX <= bounds.right &&
+                event.clientY >= bounds.top &&
+                event.clientY <= bounds.bottom;
+            if (!isInside) dialog.close();
+            document.body.style.overflow = "";
+        });
+    });
+</script>

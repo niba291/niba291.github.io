@@ -1,37 +1,24 @@
 ---
 export interface Props {
     type?: "button" | "submit" | "reset";
-    variant?: "primary" | "secondary" | "outline" | "ghost";
+    variant?: "primary" | "outline" | "ghost";
     size?: "xs" | "sm" | "md" | "lg";
     disabled?: boolean;
     class?: string;
     href?: string;
-    rel?: string;
-    download?: boolean;
-    target?: "_self" | "_blank" | "_parent" | "_top";
-    "data-embla-next"?: boolean;
-    "data-embla-prev"?: boolean;
-    "aria-label"?: string;
 }
 
 const { 
-    type = "button", 
-    variant = "primary", 
-    size = "md", 
-    disabled = false, 
+    type = "button",
+    variant = "primary",
+    size = "md",
+    disabled = false,
     class: className = "",
     href,
-    rel,
-    download = false,
-    target = "_self",
-    "data-embla-next": dataEmblaNext,
-    "data-embla-prev": dataEmblaPrev,
-    "aria-label": ariaLabel,
 } = Astro.props as Props;
 
 const variants = {
     primary: "bg-foreground text-background border border-foreground hover:bg-primary hover:text-foreground",
-    secondary: "bg-primary text-foreground hover:bg-foreground",
     outline: "border border-foreground text-foreground hover:bg-foreground/10",
     ghost: "text-foreground hover:bg-foreground/10",
 };
@@ -49,16 +36,10 @@ const Tag = href ? "a" : "button";
 ---
 
 <Tag
+    {...Astro.props}
     type={type}
     disabled={disabled}
     class={`inline-flex items-center justify-center gap-1.5 rounded-full font-medium transition-colors ${variants[variant]} ${sizes[size]} ${stateClasses} ${className}`.trim()}
-    href={href}
-    rel={rel}
-    download={download}
-    target={target}
-    data-embla-next={dataEmblaNext}
-    data-embla-prev={dataEmblaPrev}
-    aria-label={ariaLabel}
 >
     <slot />
 </Tag>

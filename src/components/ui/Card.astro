@@ -30,7 +30,7 @@ const {
 ---
 
 <Tag
-    class={`relative flex flex-col w-full ${group ? "group" : ""} ${className}`.trim()}
+    class={`relative overflow-hidden flex flex-col w-full ${group ? "group" : ""} ${className}`.trim()}
     {...(schema ? { itemscope: "", itemtype: "https://schema.org/CreativeWork" } : {})}
 >
     <div class="flex items-end">

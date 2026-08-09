@@ -7,6 +7,9 @@ import Card from "@/components/ui/Card.astro";
 import Text from "@/components/ui/Text.astro";
 import Badge from "@/components/ui/Badge.astro";
 import Label from "@/components/ui/Label.astro";
+import Button from "@/components/ui/Button.astro";
+import Modal from "@/components/ui/Modal.astro";
+import Title from "@/components/ui/Title.astro";
 
 import { experience } from "@/data";
 
@@ -21,57 +24,68 @@ const sectionId = "experiences";
     description="Años de experiencia construyendo soluciones full stack para distintas empresas."
 >
     <Carrousel>
-        {experience.map((item) => (
-            <Card
-                class="embla__slide"
-                schema
-                title={item.company}
-                titleClass="max-w-40 md:max-w-100"
-                bodyClass="p-6 pt-1 justify-between"
-            >
-                <Fragment slot="header">
-                    <Label size="xs" class="rounded-t-2xl rounded-br-none text-background! px-3 text-center bg-foreground ml-auto mr-3">
-                        {item.title.split("|")[0]}<br>
-                        {item.title.split("|")[1]}
-                    </Label>
-                </Fragment>
+        {experience.map((item) => {
+            const [
+                title,
+                date
+            ] = item.title.split("|");
+            return (
+                <Card
+                    class="embla__slide"
+                    schema
+                    group
+                    title={item.company}
+                    titleClass="max-w-40 md:max-w-100"
+                    bodyClass="relative p-6 pt-1 justify-between max-h-80! min-h-80! md:max-h-100! md:min-h-100!"
+                >
+                    <Fragment slot="header">
+                        <Label size="xs" class="rounded-t-2xl rounded-br-none text-background! px-3 text-center bg-foreground ml-auto mr-3">
+                            {title}<br>
+                            {date}
+                        </Label>
+                    </Fragment>
 
-                <details class="group" data-expand>
-                    <div class="relative">
-                        <div class="max-h-40 overflow-hidden transition-[max-height] duration-500 ease-in-out group-open:max-h-[40rem] md:max-h-none">
+                    <div class="absolute left-4 right-4 top-2 md:top-10 h-[67%] group-hover:-top-5 z-10 transition-[top] duration-500 ease-in-out flex flex-col gap-2 bg-background p-4 border border-foreground rounded-md overflow-hidden">
+                        {item.description.map((line) => (
+                            <Text size="sm" class="text-bold!">
+                                {line}
+                            </Text>
+                        ))}
+                    </div>
+                    <div class="absolute z-20 flex flex-col bg-primary w-[calc(100%+0.25rem)] p-4 gap-1 top-[33.5%] left-0 border-2 rounded-2xl -ml-0.5 h-[67%]">
+                        <div class="mx-auto">
+                            <Button size="sm" variant="ghost" class="flex-1" data-modal-open={`md-experience-${item.company}`}>
+                                <Icon name="solar:arrow-up-bold"/>
+                                Ver más
+                            </Button>
+                        </div>
+                        <div class="mt-auto mb-0">
+                            {item.tags.map((tag) => (
+                                <Badge class="text-xs">
+                                    # {tag}
+                                </Badge>
+                            ))}
+                        </div>
+                    </div>
+                    <Modal id={`md-experience-${item.company}`}>
+                        <Fragment slot="title">
+                            <div class="w-[95%] flex flex-wrap gap-2">
+                                <Title size="sm" class="w-full md:pl-1">
+                                    {item.company}
+                                </Title>
+                                <Badge class="text-xs!">{item.title}</Badge>
+                            </div>
+                        </Fragment>
+                        <div class="flex flex-col gap-4">
                             {item.description.map((line) => (
                                 <Text size="sm" class="text-bold!">
                                     {line}
                                 </Text>
                             ))}
                         </div>
-                        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-primary to-transparent transition-opacity duration-500 group-open:opacity-0 md:hidden"></div>
-                    </div>
-                    <summary class="list-none cursor-pointer select-none [&::-webkit-details-marker]:hidden [&::marker]:hidden md:hidden">
-                        <span class="flex items-center justify-center gap-1.5 mt-3 text-sm font-semibold text-foreground">
-                            <span class="group-open:hidden">Ver más</span>
-                            <span class="hidden group-open:inline">Ver menos</span>
-                            <Icon name="solar:alt-arrow-down-bold" class="size-4 transition-transform duration-300 group-open:rotate-180"/>
-                        </span>
-                    </summary>
-                </details>
-
-                <div class="flex flex-wrap gap-1 mt-4 items-end">
-                    {item.tags.map((tag) => (
-                        <Badge class="text-xs">
-                            # {tag}
-                        </Badge>
-                    ))}
-                </div>
-            </Card>
-        ))}
+                    </Modal>
+                </Card>
+            );
+        })}
     </Carrousel>
 </Section>
-
-<style>
-    @media (min-width: 768px) {
-        details[data-expand]:not([open]) > div {
-            display: block;
-        }
-    }
-</style>
