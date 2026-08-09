@@ -9,5 +9,5 @@ export default defineConfig({
     vite: {
         plugins: [tailwindcss()],
     },
-    integrations: [icon(), reveal({ mode: "observer" })],
+    integrations: [icon(), reveal({ mode: "observer", once: false })],
 });
