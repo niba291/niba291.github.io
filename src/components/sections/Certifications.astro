@@ -76,9 +76,11 @@ const sectionId = "certifications";
 </Section>
 
 <script>
-    const details = Array.from(document.querySelectorAll("details[data-services]"));
+    const details = Array.from(
+        document.querySelectorAll<HTMLDetailsElement>("details[data-services]")
+    );
 
-    const closeOthers = (keep) => {
+    const closeOthers = (keep: HTMLDetailsElement) => {
         details.forEach((item) => {
             if (item !== keep) item.removeAttribute("open");
         });
@@ -93,7 +95,7 @@ const sectionId = "certifications";
         });
     } else {
         details.forEach((detail) => {
-            detail.querySelector("summary").addEventListener("click", (e) => {
+            detail.querySelector("summary")?.addEventListener("click", (e) => {
                 e.preventDefault();
                 const willOpen = !detail.hasAttribute("open");
                 closeOthers(detail);
