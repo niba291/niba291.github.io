@@ -76,17 +76,29 @@ const sectionId = "certifications";
 </Section>
 
 <script>
-    const details = document.querySelectorAll("details[data-services]");
+    const details = Array.from(document.querySelectorAll("details[data-services]"));
 
-    details.forEach((detail) => {
-        detail.addEventListener("mouseenter", () => {
-            const openDetails = document.querySelectorAll("details[data-services][open]");
-            openDetails.forEach((item) => {
-                if (detail != item) {
-                    item.removeAttribute("open");
-                }
-            });
-            detail.setAttribute("open", "");
+    const closeOthers = (keep) => {
+        details.forEach((item) => {
+            if (item !== keep) item.removeAttribute("open");
         });
-    });
+    };
+
+    if (window.matchMedia("(hover: hover)").matches) {
+        details.forEach((detail) => {
+            detail.addEventListener("mouseenter", () => {
+                closeOthers(detail);
+                detail.setAttribute("open", "");
+            });
+        });
+    } else {
+        details.forEach((detail) => {
+            detail.querySelector("summary").addEventListener("click", (e) => {
+                e.preventDefault();
+                const willOpen = !detail.hasAttribute("open");
+                closeOthers(detail);
+                if (willOpen) detail.setAttribute("open", "");
+            });
+        });
+    }
 </script>
