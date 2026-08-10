@@ -1,6 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
+
 import Corner from "@/components/ui/Corner.astro";
+import Button from "@/components/ui/Button.astro";
+
 import { navLinks } from "@/data/site";
 ---
 
@@ -12,9 +15,9 @@ import { navLinks } from "@/data/site";
             <ul class="flex items-center gap-4">
                 {navLinks.map((link) => (
                     <li>
-                        <a href={link.href} aria-label={link.label} title={link.label} class="nav-link transition-colors duration-300 rounded-full p-2 inline-flex data-active:bg-background data-active:text-foreground">
+                        <Button href={link.href} aria-label={link.label} class="nav-link rounded-full p-2! data-active:bg-background data-active:text-foreground">
                             <Icon name={link.icon} class="size-6"/>
-                        </a>
+                        </Button>
                     </li>
                 ))}
             </ul>
@@ -32,9 +35,9 @@ import { navLinks } from "@/data/site";
                 <ul class="flex flex-row gap-6 items-center justify-center">
                     {navLinks.map((link) => (
                         <li>
-                            <a href={link.href} aria-label={link.label} title={link.label} class="nav-link transition-colors duration-300 rounded-full p-2 inline-flex data-active:bg-background data-active:text-foreground">
+                            <Button href={link.href} aria-label={link.label} class="nav-link rounded-full p-2! data-active:bg-background data-active:text-foreground">
                                 <Icon name={link.icon} class="size-6"/>
-                            </a>
+                            </Button>
                         </li>
                     ))}
                 </ul>

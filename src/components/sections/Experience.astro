@@ -45,14 +45,14 @@ const sectionId = "experiences";
                         </Label>
                     </Fragment>
 
-                    <div class="absolute left-4 right-4 top-2 md:top-10 h-[67%] group-hover:-top-5 z-10 transition-[top] duration-500 ease-in-out flex flex-col gap-2 bg-background p-4 border border-foreground rounded-md overflow-hidden">
+                    <div class="absolute left-4 right-4 top-2 md:top-10 h-[67%] group-hover:-top-5 z-10 transition-[top] duration-500 ease-in-out flex flex-col gap-2 bg-background p-4 border border-border rounded-md overflow-hidden">
                         {item.description.map((line) => (
                             <Text size="sm" class="text-bold!">
                                 {line}
                             </Text>
                         ))}
                     </div>
-                    <div class="absolute z-20 flex flex-col bg-primary w-[calc(100%+0.25rem)] p-4 gap-1 top-[33.5%] left-0 border-2 rounded-2xl -ml-0.5 h-[67%]">
+                    <div class="absolute z-20 flex flex-col bg-primary w-[calc(100%+0.25rem)] p-4 gap-1 top-[33.55%] left-0 border-2 border-border rounded-2xl -ml-0.5 h-[67%]">
                         <div class="mx-auto">
                             <Button size="sm" variant="ghost" class="flex-1" data-modal-open={`md-experience-${item.company}`}>
                                 <Icon name="solar:arrow-up-bold"/>

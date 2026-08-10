@@ -34,7 +34,7 @@ const {
     {...(schema ? { itemscope: "", itemtype: "https://schema.org/CreativeWork" } : {})}
 >
     <div class="flex items-end">
-        <div class={`relative px-2 py-2 bg-primary border-2 border-b-0 border-foreground shrink-0 z-4 rounded-t-2xl flex items-center gap-2 ${titleClass}`.trim()}>
+        <div class={`relative px-2 py-2 bg-primary border-2 border-b-0 border-border shrink-0 z-4 rounded-t-2xl flex items-center gap-2 ${titleClass}`.trim()}>
             {icon !== "" && (
                 <Icon name={icon} class="size-4 text-secondary shrink-0"/>
             )}
@@ -48,7 +48,7 @@ const {
         <slot name="header" />
     </div>
 
-    <div class={`flex-1 bg-primary border-2 border-foreground rounded-2xl rounded-tl-none -mt-0.5 flex flex-col ${bodyClass}`.trim()}>
+    <div class={`flex-1 bg-primary border-2 border-border rounded-2xl rounded-tl-none -mt-0.5 flex flex-col ${bodyClass}`.trim()}>
         <slot />
     </div>
 </Tag>
