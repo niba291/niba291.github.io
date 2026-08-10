@@ -6,10 +6,15 @@
     --color-secondary: #85431E;
     --color-foreground: #34150F;
     --color-background: #EACEAA;
-    --color-border: #EACEAA;
+    --color-border: #34150F;
     --color-scroll: #EACEAA;
     --color-black-base: #0B0B0B;
 }
+
+/* --color-foreground: #EACEAA;
+--color-background: #34150F;
+--color-scroll: #34150F;
+--color-primary: #b1793d; */
 
 .gh-cell {
     position: relative;
