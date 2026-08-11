@@ -1,0 +1,85 @@
+---
+import { Icon } from "astro-icon/components";
+
+import Button from "@/components/ui/Button.astro";
+
+
+interface Props {
+    id: string;
+    align?: "start" | "end";
+    chevron?: string;
+    class?: string;
+    menuClass?: string;
+    ariaLabel?: string;
+}
+
+const {
+    id,
+    align = "end",
+    chevron = "",
+    class: className = "",
+    menuClass = "",
+    ariaLabel = "menu",
+} = Astro.props as Props;
+---
+
+<div class={`relative inline-block ${className}`.trim()} data-dropdown>
+    <Button 
+        data-dropdown-trigger
+        aria-haspopup="menu"
+        aria-expanded="false"
+        aria-controls={id}
+        aria-label={ariaLabel}
+        class="rounded-full p-2!"
+    >
+        <slot name="trigger" />
+        {chevron !== "" && <Icon name={chevron} class="size-4 transition-transform" />}
+    </Button>
+    <div
+        id={id}
+        role="menu"
+        data-dropdown-menu
+        class={`absolute z-50 hidden min-w-44 flex-col overflow-hidden rounded-xl border-2 p-2 border-foreground bg-background ${align === "end" ? "right-0" : "left-0"} ${menuClass}`.trim()}
+    >
+        <slot name="menu" />
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll<HTMLElement>("[data-dropdown]").forEach((dropdown) => {
+        const trigger = dropdown.querySelector<HTMLElement>("[data-dropdown-trigger]");
+        const menu = dropdown.querySelector<HTMLElement>("[data-dropdown-menu]");
+        if (!trigger || !menu) return;
+
+        const toggle = (open: boolean) => {
+            menu.classList.toggle("hidden", !open);
+            menu.classList.toggle("flex", open);
+            if (open) {
+                const triggerRect = trigger.getBoundingClientRect();
+                const spaceBelow = window.innerHeight - triggerRect.bottom;
+                const spaceAbove = triggerRect.top;
+                const openUp = menu.offsetHeight > spaceBelow && spaceAbove > spaceBelow;
+                menu.classList.toggle("bottom-full", openUp);
+                menu.classList.toggle("top-full", !openUp);
+                menu.classList.toggle("mb-2", openUp);
+                menu.classList.toggle("mt-2", !openUp);
+            }
+            trigger.setAttribute("aria-expanded", String(open));
+        };
+
+        trigger.addEventListener("click", (event) => {
+            event.stopPropagation();
+            toggle(menu.classList.contains("hidden"));
+        });
+
+        menu.addEventListener("click", () => toggle(false));
+
+        document.addEventListener("click", (event) => {
+            if (!(event.target as Element | null)?.closest("[data-dropdown]")) toggle(false);
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") toggle(false);
+        });
+    });
+</script>

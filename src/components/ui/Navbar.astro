@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 
 import Corner from "@/components/ui/Corner.astro";
 import Button from "@/components/ui/Button.astro";
+import Dropdown from "@/components/ui/Dropdown.astro";
 
 import { navLinks } from "@/data/site";
 ---
@@ -20,6 +21,23 @@ import { navLinks } from "@/data/site";
                         </Button>
                     </li>
                 ))}
+                <li>
+                    <Dropdown id="dpd-desktop-settings">
+                        <Fragment slot="trigger">
+                            <Icon name="solar:settings-bold" class="size-6"/>
+                        </Fragment>
+                        <Fragment slot="menu">
+                            <div class="flex justify-center gap-2">
+                                <Button data-theme-toggle="light" aria-label="Toggle light theme" class="rounded-full p-2! data-active:bg-background data-active:text-foreground">
+                                    <Icon name="solar:sun-2-bold" class="size-6"/>
+                                </Button>
+                                <Button data-theme-toggle="dark" aria-label="Toggle dark theme" class="rounded-full p-2! data-active:bg-background data-active:text-foreground">
+                                    <Icon name="solar:moon-bold" class="size-6"/>
+                                </Button>
+                            </div>
+                        </Fragment>
+                    </Dropdown>
+                </li>
             </ul>
         </nav>    
         <Corner corners="lt rt" line="transparent"/>
@@ -40,6 +58,23 @@ import { navLinks } from "@/data/site";
                             </Button>
                         </li>
                     ))}
+                    <li>
+                        <Dropdown id="dpd-mobile-settings">
+                            <Fragment slot="trigger">
+                                <Icon name="solar:settings-bold" class="size-6"/>
+                            </Fragment>
+                            <Fragment slot="menu">
+                                <div class="flex justify-center gap-2">
+                                    <Button data-theme-toggle="light" aria-label="Toggle light theme" class="rounded-full p-2! data-active:bg-background data-active:text-foreground">
+                                        <Icon name="solar:sun-2-bold" class="size-6"/>
+                                    </Button>
+                                    <Button data-theme-toggle="dark" aria-label="Toggle dark theme" class="rounded-full p-2! data-active:bg-background data-active:text-foreground">
+                                        <Icon name="solar:moon-bold" class="size-6"/>
+                                    </Button>
+                                </div>
+                            </Fragment>
+                        </Dropdown>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -50,6 +85,26 @@ import { navLinks } from "@/data/site";
     const links = document.querySelectorAll<HTMLAnchorElement>(".nav-link");
     const ids = Array.from(links).map((a) => a.getAttribute("href")?.slice(1)).filter(Boolean) as string[];
     const sections = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+    const themeButtons = document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]");
+
+    const setActiveTheme = (theme: string) => {
+        themeButtons.forEach((button) => {
+            button.toggleAttribute("data-active", button.dataset.themeToggle === theme);
+        });
+    };
+
+    let currentTheme = document.documentElement.dataset.theme ?? "light";
+    setActiveTheme(currentTheme);
+
+    themeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            currentTheme = button.dataset.themeToggle ?? "light";
+            document.documentElement.dataset.theme = currentTheme;
+            localStorage.setItem("theme", currentTheme);
+            setActiveTheme(currentTheme);
+        });
+    });
 
     const observer = new IntersectionObserver(
         (entries) => {

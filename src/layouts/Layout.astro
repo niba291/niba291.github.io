@@ -16,6 +16,13 @@ import "@/styles/global.css";
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<meta name="generator" content={Astro.generator} />
 	<meta name="description" content={site.description} />
+	<script>
+		const savedTheme = localStorage.getItem("theme");
+		const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
+		if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+			document.documentElement.dataset.theme = "dark";
+		}
+	</script>
 	<title>{site.title}</title>
 </head>
 <body class="bg-foreground">

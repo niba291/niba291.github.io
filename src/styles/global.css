@@ -2,19 +2,31 @@
 
 
 @theme {
-    --color-primary: #D39858;
-    --color-secondary: #85431E;
-    --color-foreground: #34150F;
-    --color-background: #EACEAA;
-    --color-border: #34150F;
-    --color-scroll: #EACEAA;
-    --color-black-base: #0B0B0B;
+    --color-primary: var(--t-primary);
+    --color-secondary: var(--t-secondary);
+    --color-foreground: var(--t-foreground);
+    --color-background: var(--t-background);
+    --color-border: var(--t-border);
+    --color-scroll: var(--t-scroll);
 }
 
-/* --color-foreground: #EACEAA;
---color-background: #34150F;
---color-scroll: #34150F;
---color-primary: #b1793d; */
+:root {
+    --t-primary: #D39858;
+    --t-secondary: #85431E;
+    --t-foreground: #34150F;
+    --t-background: #EACEAA;
+    --t-border: #34150F;
+    --t-scroll: #EACEAA;
+}
+
+[data-theme="dark"] {
+    --t-primary: #b1793d;
+    --t-secondary: #b1793d;
+    --t-foreground: #EACEAA;
+    --t-background: #34150F;
+    --t-border: #EACEAA;
+    --t-scroll: #34150F;
+}
 
 .gh-cell {
     position: relative;
