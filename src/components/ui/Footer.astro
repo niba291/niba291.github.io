@@ -1,6 +1,4 @@
 ---
-import { Icon } from "astro-icon/components";
-
 import Section from "@/components/ui/Section.astro";
 import Label from "@/components/ui/Label.astro";
 import Link from "@/components/ui/Link.astro";
@@ -32,7 +30,7 @@ import { footer } from "@/data";
                 Inspired by
             </Label>
             <div class="flex flex-col gap-1">
-                {footer.inspiredBy.map((item, i) => (
+                {footer.inspiredBy.map((item) => (
                     <Link href={item.href} target="_blank" class="text-sm">
                         {item.name}
                     </Link>
@@ -44,7 +42,7 @@ import { footer } from "@/data";
                 Deployed on
             </Label>
             <div class="flex flex-col gap-1">
-                {footer.deployedOn.map((item, i) => (
+                {footer.deployedOn.map((item) => (
                     <Link href={item.href} target="_blank" class="text-sm">
                         {item.name}
                     </Link>

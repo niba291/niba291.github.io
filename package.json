@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "check": "astro check",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -20,6 +21,7 @@
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "astro-icon": "^1.1.5"
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
   }
 }

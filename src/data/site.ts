@@ -1,6 +1,6 @@
 export const site = {
-    title: "Portafolio | Nibaldo",
-    description: "Portafolio | Niba",
+    title: "Nibaldo Chavez | Desarrollador Full Stack",
+    description: "Portafolio de Nibaldo Chavez, desarrollador full stack. Trayectoria profesional, proyectos destacados, certificaciones y habilidades técnicas.",
     name: "Nibaldo Chavez",
     role: "Desarrollador full stack",
     username: "niba291",

@@ -6,16 +6,55 @@ import Footer from "@/components/ui/Footer.astro";
 import Loader from "@/components/ui/Loader.astro";
 
 import "@/styles/global.css";
+
+const { title = site.title, description = site.description } = Astro.props;
+const canonical = Astro.url.origin + Astro.url.pathname;
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "WebSite",
+			name: site.name,
+			url: canonical,
+			inLanguage: "es",
+		},
+		{
+			"@type": "Person",
+			name: site.name,
+			jobTitle: site.role,
+			url: canonical,
+			image: site.profileImage,
+			sameAs: [site.social.github, site.social.linkedin],
+		},
+	],
+};
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<meta name="generator" content={Astro.generator} />
-	<meta name="description" content={site.description} />
+	<meta name="description" content={description} />
+	<link rel="canonical" href={canonical} />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content={site.name} />
+	<meta property="og:locale" content="es_CL" />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta property="og:url" content={canonical} />
+	<meta property="og:image" content={site.profileImage} />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content={title} />
+	<meta name="twitter:description" content={description} />
+	<meta name="twitter:image" content={site.profileImage} />
+
+	<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)}></script>
+
 	<script>
 		const savedTheme = localStorage.getItem("theme");
 		const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
@@ -23,7 +62,7 @@ import "@/styles/global.css";
 			document.documentElement.dataset.theme = "dark";
 		}
 	</script>
-	<title>{site.title}</title>
+	<title>{title}</title>
 </head>
 <body class="bg-foreground">
 	<div id="page-loader" class="fixed inset-0 z-100 flex items-center justify-center bg-background">
