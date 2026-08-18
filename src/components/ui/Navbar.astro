@@ -83,8 +83,8 @@ import { navLinks } from "@/data/site";
 
 <script>
     const links = document.querySelectorAll<HTMLAnchorElement>(".nav-link");
-    const ids = Array.from(links).map((a) => a.getAttribute("href")?.slice(1)).filter(Boolean) as string[];
-    const sections = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const ids = Array.from(links).map((a) => a.getAttribute("href")?.slice(1)).filter((id): id is string => id !== undefined);
+    const sections = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => el !== null);
 
     const themeButtons = document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]");
 

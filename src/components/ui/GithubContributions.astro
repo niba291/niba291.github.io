@@ -13,6 +13,7 @@ const { username = site.social.github.split("/").pop() } = Astro.props as Props;
 const data = await getContributions(username!);
 
 type Day = { date: string; count: number; level: number; outside: boolean };
+type Month = { index: number; label: string; key: string } | null;
 
 const MONTHS = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -41,7 +42,7 @@ function getUTCMonth(iso: string) {
 }
 
 function buildCalendar(contributions: GitHubContribution[]) {
-    if (contributions.length === 0) return { weeks: [] as Day[][], months: [] as ({ index: number; label: string; key: string } | null)[] };
+    if (contributions.length === 0) return { weeks: [] as Day[][], months: [] as Month[] };
 
     const byDate = new Map<string, GitHubContribution>();
     for (const c of contributions) byDate.set(c.date, c);
@@ -50,7 +51,7 @@ function buildCalendar(contributions: GitHubContribution[]) {
     const lastIso = contributions[contributions.length - 1].date;
 
     const weeks: Day[][] = [];
-    const months: ({ index: number; label: string; key: string } | null)[] = [];
+    const months: Month[] = [];
 
     let cursor = addDays(firstIso, -getUTCDay(firstIso));
 

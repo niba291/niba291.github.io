@@ -49,7 +49,8 @@ const hasTitleSlot = Astro.slots.has("title");
 
 <script>
     function getModal(id: string) {
-        return document.getElementById(id) as HTMLDialogElement | null;
+        const el = document.getElementById(id);
+        return el instanceof HTMLDialogElement ? el : null;
     }
 
     document.querySelectorAll<HTMLElement>("[data-modal-open]").forEach((trigger) => {
