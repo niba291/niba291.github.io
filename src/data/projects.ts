@@ -2,6 +2,13 @@ import type { Project } from "@/types";
 
 export const projects: Project[] = [
     {
+        title           : "GANCHITOS BURGES",
+        description     : "Landing page para hamburguesería en Peralillo con diseño moderno, carta de hamburguesas y carrito de compra que envía el pedido directo por WhatsApp.",
+        live            : "https://ganchitos.nibachavez291.workers.dev/",
+        img             : "/projects/ganchitos.webp",
+        tags            : ["ASTRO", "TAILWINDSCSS"]
+    },
+    {
         title           : "DIGITALDEVSOLUTIONS",
         description     : "Landing page creada con Astro y Tailwind CSS, enfocada en promover servicios de programación web. Diseño rápido y responsivo. Optimizada para una experiencia fluida y conversión de clientes.",
         github          : "https://github.com/DigitalDevSolutions/LAN-WEB",

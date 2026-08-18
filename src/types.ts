@@ -26,7 +26,7 @@ export interface Experience {
 export interface Project {
     title: string;
     description: string;
-    github: string;
+    github?: string;
     live: string;
     img: ImageMetadata | string;
     tags: string[];
