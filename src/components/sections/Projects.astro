@@ -54,10 +54,12 @@ const sectionId = "projects";
                                     </Badge>
                                 ))}
                             </div>
-                            <Button href={project.github} target="_blank" rel="noopener noreferrer" variant="outline" size="sm" class="flex-1">
-                                <Icon name="mdi:github"/>
-                                Código
-                            </Button>
+                            {project.github && (
+                                <Button href={project.github} target="_blank" rel="noopener noreferrer" variant="outline" size="sm" class="flex-1">
+                                    <Icon name="mdi:github"/>
+                                    Código
+                                </Button>
+                            )}
                             <Button href={project.live} target="_blank" rel="noopener noreferrer" size="sm" class="flex-1">
                                 <Icon name="solar:arrow-up-bold"/>
                                 Demo
