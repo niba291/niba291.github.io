@@ -21,3 +21,6 @@ pnpm-debug.log*
 .DS_Store
 
 .vscode
+
+.opencode/
+skills-lock.json
