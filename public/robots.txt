@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://niba291.github.io/sitemap.xml
+Sitemap: https://niba291.github.io/sitemap-index.xml
