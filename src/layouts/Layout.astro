@@ -58,7 +58,7 @@ const jsonLd = {
 	<script>
 		const savedTheme = localStorage.getItem("theme");
 		const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
-		if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+		if (savedTheme === "dark") {
 			document.documentElement.dataset.theme = "dark";
 		}
 	</script>
